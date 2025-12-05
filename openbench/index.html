@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs">
+    <meta name="keywords" content="MLLMs, spatial reasoning, OpenBench, multimodal large language models">
+    <title>From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs</title>
+    
+    <link rel="preload" href="https://airi-institute.github.io/assets/Inter/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://airi-institute.github.io/assets/Inter/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/back-button.css">
+    <link rel="stylesheet" href="css/menu.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/copy.js" defer></script>
+    <script src="js/back-button.js" defer></script>
+    <script src="js/menu.js" defer></script>
+    
+    <style>
+        /* =========================================
+           1. 基础设置与重置
+           ========================================= */
+        body {
+            background-color: #ffffff !important;
+        }
+        .page-header, header {
+            background-color: #ffffff !important;
+            box-shadow: none !important;
+        }
+        .hero, .abstract-section, section {
+            background-color: #ffffff !important;
+        }
+
+        /* 链接样式 */
+        .author-name a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .author-name a:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        /* 容器宽度限制 (优化阅读体验) */
+        .abstract-container, .hero .container {
+            max-width: 960px !important;
+        }
+
+        /* =========================================
+           2. 文字样式统一管理 (核心修改)
+           ========================================= */
+        
+        /* 【类型一】正文文字 (Body Text) */
+        .body-text {
+            font-family: 'InterRegular', Arial, sans-serif;
+            font-size: 20px;        /* 统一正文字号 */
+            color: #444444;         /* 统一深灰色 */
+            line-height: 1.4;       /* 统一行高 */
+            text-align: justify;    /* 统一两端对齐 */
+            margin-bottom: 15px;    /* 段落间距 */
+        }
+
+        /* 【类型二】图注文字 (Caption Text) */
+        .image-caption {
+            font-family: 'InterRegular', Arial, sans-serif;
+            font-size: 1.1rem;     /* 略小于正文 */
+            color: #555555;         /* 略浅的灰色 */
+            text-align: center;     /* 默认居中 (长文本可在HTML中 override 为 justify) */
+            margin-top: 12px;       /* 图片与图注的间距 */
+            line-height: 1.4;
+        }
+
+        /* 标题样式微调 */
+        h1 {
+            font-family: 'InterMedium', Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        /* =========================================
+           3. 图片与容器样式
+           ========================================= */
+        .image-container {
+            width: 100%;
+            text-align: center;
+            margin: 10px auto;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .diagram-image {
+            max-width: 100%;
+            height: auto;
+            display: inline-block;
+            border: none !important;
+            box-shadow: none !important;
+            background: transparent !important; 
+            border-radius: 0 !important;
+        }
+
+        /* =========================================
+           4. 滚动跑马灯组件 (Carousel)
+           ========================================= */
+        .scroll-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+            padding: 15px 0;
+        }
+
+        .scroll-track {
+            display: flex;
+            width: max-content;
+            animation: scroll-left 60s linear infinite;
+        }
+        
+        .scroll-slide {
+            width: 15vw; /* 适配宽度 */
+            aspect-ratio: 16 / 9; /* 强制 1080p 比例 */
+            flex-shrink: 0;
+            padding: 0 5px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .scroll-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+        }
+
+        .scroll-container:hover .scroll-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* =========================================
+           5. 表格样式
+           ========================================= */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 24px auto;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+            table-layout: auto;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+        }
+        .table tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+        .table caption {
+            caption-side: bottom;
+            text-align: center;
+            color: #666666;
+            margin-top: 10px;
+        }
+
+        /* =========================================
+           6. 全局布局修正 (Teaser位置调整)
+           ========================================= */
+        #introduction .hero-body {
+            padding-top: 10px !important;
+            padding-bottom: 20px !important;
+        }
+
+        .authors-section {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+            height: auto !important;
+        }
+
+        /* 使用负 margin 向上提 Teaser */
+        #introduction {
+            margin-top: -40px !important; 
+        }
+
+        #introduction .image-container:first-child {
+            margin-top: 0 !important;
+        }
+
+    .highlight-box {
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        padding: 15px 25px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        display: block;         /* 1. 改为块级元素 (原来是 inline-block) */
+        width: fit-content;     /* 2. 宽度设为"适应内容" (否则会占满整行) */
+        margin: 30px auto;      /* 3. 上下30px，左右自动(居中关键) */
+        font-style: normal;
+        font-size: 20px;
+        border: 1px solid #ddd;
+    }
+
+    </style>
+</head>
+<body>
+  <nav id="quick-access-menu">
+    <ul>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#construction">Construction</a></li>
+      <li><a href="#evaluation">Evaluation</a></li>
+      <li><a href="#mirage">Mirage</a></li>
+      <li><a href="#linguistics">Linguistic Priors</a></li>
+      <li><a href="#geometric">Ablation</a></li>
+    </ul>
+  </nav>
+  
+
+  <header class="page-header">
+    <div class="header-content">
+        <h1 class="page-title">
+            <span class="title-highlight">From Indoor to Open World</span>
+            <span class="title-subtitle">Revealing the Spatial Reasoning Gap in MLLMs</span>
+        </h1>
+    </div>
+</header>
+
+
+<section class="authors-section" style="margin-top: -70px;">
+    <div class="container">
+        <div class="authors-container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="author">
+                <span class="author-name">
+                    <a href="https://scholar.google.com/citations?user=Y1TtPL8AAAAJ&hl=en" target="_blank">Mingrui Wu</a><sup>1</sup>
+                </span>
+            </div>
+            <div class="author">
+                <span class="author-name">
+                    <a href="https://scholar.google.com/citations?user=GuqoolgAAAAJ&hl=en" target="_blank">Jiaolong Yang</a><sup>3</sup>
+                </span>
+            </div>
+            <div class="author">
+                <span class="author-name">
+                    <a href="https://scholar.google.com/citations?user=CkDanj8AAAAJ&hl=en" target="_blank">Zhaozhi Wang</a><sup>1</sup>
+                </span>
+            </div>
+            <div class="author">
+                <span class="author-name">
+                    <a href="https://scholar.google.com/citations?user=YYH0BjEAAAAJ&hl=en" target="_blank">Marc Pollefeys</a><sup>2</sup>
+                </span>
+            </div>
+            <div class="author">
+                <span class="author-name">
+                    <a href="https://scholar.google.com/citations?user=ysTmrEsAAAAJ&hl=en" target="_blank">Fangjinhua Wang</a><sup>2</sup>
+                </span>
+            </div>
+            <div class="author">
+                <span class="author-name">
+                    <a href="https://scholar.google.com/citations?user=kCy8JG8AAAAJ&hl=en" target="_blank">Tong Zhang</a><sup>1,*</sup>
+                </span>
+            </div>
+        </div>
+        
+        <div class="affiliations-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+          <div class="affiliations-column">
+            <div class="affiliation">
+              <div class="affiliation-text"><sup>1</sup>University of Chinese Academy of Sciences</div>
+            </div>
+            <div class="affiliation">
+              <div class="affiliation-text"><sup>2</sup>ETH Zürich</div>
+            </div>
+            <div class="affiliation">
+              <div class="affiliation-text"><sup>3</sup>Microsoft Research Asia</div>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="abstract-section" id="introduction" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
+    <div class="hero-body">
+        <div class="container abstract-container">
+            
+            <div class="image-container" style="text-align: center; margin-bottom: 0px;">
+                <img src="assets/teaser.png" class="diagram-image" alt="Comparison between VSI-Bench and OpenBench" loading="lazy">
+                
+                <div class="image-caption" style="text-align: justify;">
+                    <strong>Figure 1: Comparison between VSI-Bench [Yang et al. 2025] and OpenBench (ours).</strong> 
+                    <strong>Top:</strong> Qualitative comparison of Gemini-2.5-Pro's responses, with and without vision inputs, on VSI-Bench and OpenBench. 
+                    <strong>Bottom:</strong> Quantitative comparison of two benchmarks in terms of evaluation coverage, scale range, semantic diversity, and accuracy drop without vision inputs.
+                    <br>
+                    <span style="font-size: 0.9em; color: #666; display: block; margin-top: 5px;">
+                        * The mean relative accuracy drop of GPT-4o on absolute distance tasks when vision inputs are disabled. A larger drop proves reliance on vision, not linguistic priors, in the unstructured layouts.
+                    </span>
+                </div>
+            </div>
+
+            <p class="body-text">
+                <strong>Drawbacks of existing visual spatial benchmarks.</strong> They either focus on overly simplified qualitative reasoning or rely on domain-specific indoor data, constrained by the lack of outdoor datasets with verifiable metric ground truth.
+            </p>
+            
+            <p class="body-text">
+                <strong>Customized Open-world Data and Benchmark.</strong> We collected pedestrian-perspective open-world data—rare in prior datasets—comprising stereo video, LiDAR point clouds, and IMU/GPS data, which provide precise 3D spatial ground truth in open-world environments. Based on this data, we constructed OpenBench, spanning all three tiers of the spatial hierarchy we defined: relational reasoning, metric reasoning, and crucially, kinematic reasoning.
+            </p>
+            
+            <p class="body-text">
+                <strong>The Mirage of Progress and Linguistic Priors in Spatial Intelligence.</strong> We found that the progress in spatial intelligence observed on indoor benchmarks is largely a mirage—unable to transfer to open-world settings. Our analysis suggests that the strong linguistic priors inherent in structured indoor scenes partly explain this failure.
+            </p>
+        
+            <div class="image-container" style="text-align: center;margin-top: 50px; margin-bottom: 30px;">
+                    <img src="assets/tasks.png" class="diagram-image" alt="Tasks" loading="lazy">
+                    <div class="image-caption">
+                        <strong>Figure 2: Tasks and composition of OpenBench. </strong> 
+                    </div>
+                </div>
+
+                <p class="body-text">
+                    <strong>The spatial tasks in OpenBench are structured as a hierarchy of three tiers. </strong> 
+                    1) <em>Relational Reasoning</em>, the qualitative understanding of spatial configurations including relative arrangement, orientation, and overall scene structure; 
+                    2) <em>Static Metric Reasoning</em>, the quantitative estimation of absolute geometric properties such as distance, depth, and size; 
+                    3) <em>Dynamic Metric Reasoning</em>, the metric-aware understanding of scene dynamics, encompassing both object motion (e.g., velocity) and the observer's ego-motion.
+                </p>
+        </div>
+    </div>
+</section>
+
+<section class="hero" id="construction" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
+    <div class="hero-body">
+
+        <div class="container abstract-container">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size:36px;">Building an Open-World Visual Spatial Benchmark</h1>
+            </div>
+
+            <div style="margin-bottom: 60px;">
+                
+                <div class="image-container" style="text-align: center; margin-bottom: 30px;">
+                    <div class="scroll-container" id="imageCarousel">
+                            <div class="scroll-track">
+                            <div class="scroll-slide"><img src="assets/samples/ancient.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/art_center.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/basket.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/campus.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/green.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/mall.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/park.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/plaza2.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/sidewalk.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/street.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/tourist.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/urban2.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/traffic_center.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/site1.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/ancient.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/art_center.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/basket.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/campus.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/green.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/mall.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/park.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/plaza2.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/sidewalk.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/street.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/tourist.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/urban2.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/traffic_center.png" alt="sample"></div>
+                            <div class="scroll-slide"><img src="assets/samples/site1.png" alt="sample"></div>
+                        </div>
+                    </div>
+                    <div class="image-caption" style="text-align: justify;">
+                        <strong>Figure 3: Representative samples of our open-world pedestrian-perspective data.</strong> We collected multimodal videos with high semantic diversity, covering various scenes such as urban areas, campuses, parks, shopping centers, and tourist sites.
+                    </div>
+                </div>
+
+                <div class="image-container" style="text-align: center; margin-bottom: 30px;">
+                    <img src="assets/pipeline.png" class="diagram-image" alt="Pipeline" loading="lazy">
+                    
+                    <div class="image-caption">
+                        <strong>Figure 4: Overview of our benchmark construction pipeline.</strong> 
+                    </div>
+                </div>
+
+                <p class="body-text">
+                    Unlike previous works that primarily repurpose off-the-shelf datasets, OpenBench first establishes a purpose-built data foundation through a customized multi-sensor data collection effort that provides metrically-sound ground truth.
+                    Then, we designed a pipeline that extracts spatial information and generates question-answer pairs covering the full spectrum of spatial intelligence, finalized by a careful human curation phase to ensure benchmark quality. 
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero" id="evaluation" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
+    <div class="hero-body">
+
+        <div class="container abstract-container">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size:36px;">Evaluation on OpenBench</h1>
+            </div>
+
+            <div style="margin-bottom: 60px;">
+                <div class="image-container" style="text-align: justify; margin-bottom: 30px;">
+                    <img src="assets/results.png" class="diagram-image" alt="Results" loading="lazy">
+                    
+                    <div class="image-caption" style="text-align: justify;">
+                        <strong>Table 1: Evaluation results for MLLMs.</strong> We highlight the best and second-best results for each sub-task in <span style="background-color: #b0b0b0; padding: 2px 6px; border-radius: 5px;">deeper gray</span> and <span style="background-color: #d3d3d3; padding: 2px 6px; border-radius: 5px;">light gray</span>.
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                      <b>Finding 1:</b> Human-model disparity peaks on spatial relations rather than on metric estimation.
+                </div>
+                <p class="body-text">
+                    Humans outperform models most dramatically on relational reasoning tasks (e.g., <em>relative direction</em>: 83.3 vs. 23&ndash;30 for top models), while the performance gap narrows on metric estimation tasks (e.g., <em>absolute distance</em>, <em>depth-aware-counting</em>).
+                    This indicates that what appears “intuitive” for humans&mdash;understanding relative spatial layouts&mdash;remains highly non-trivial for current MLLMs.
+                </p>
+
+                <div class="highlight-box">
+                      <b>Finding 2:</b> Performance on OpenBench is not uniformly consistent; rather, models exhibit distinct performance profiles with clear strengths and weaknesses that are often specific to the model family.
+                </div>
+                <p class="body-text">
+                    Beyond the top-performing Gemini-2.5-Pro, we find that model performance lacks a clear correlation between overall scores and specific sub-task capabilities. For instance, while Qwen3VL-32B-Instruct is the leading open-source model on average, it performs poorly on specific tasks, ranking 18th out of 20 on <em>relative direction</em> and 15th on <em>absolute distance</em>.
+                </p>
+                <p class="body-text">
+                    Moreover, we observe strong task specializations that appear to be inherent to model families. For instance, the OVIS2 family consistently excels at <em>relative direction</em>, and the InternVL3.5 family demonstrates a significant and persistent advantage in <em>depth-aware-counting</em>, with all its variants scoring above 40 on this task.
+                </p>
+                
+                <div class="highlight-box">
+                      <b>Finding 3:</b> MLLMs fail to reason about quantitative spatial dynamics. While performance on static spatial tasks varies across models, Dynamic Metric reasoning remains a universal failure case.
+                </div>
+                <p class="body-text">
+                    The top tier of spatial understanding involves estimating dynamic motion in the real world—a task requiring both metric precision and temporal consistency. Unlike static metric reasoning, where Gemini-2.5-Pro performs comparably to human annotators, all evaluated models exhibit a severe degradation when estimating motion-related quantities such as displacement or speed. 
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero" id="mirage" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
+    <div class="hero-body">
+        <div class="container abstract-container">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size:36px;">Current Spatial Intelligence is a Mirage</h1>
+            </div>
+            <div class="image-container" style="text-align: center; margin-bottom: 30px;">
+                    <img src="assets/scaling.png" class="diagram-image" alt="Scaling Analysis" loading="lazy">
+                    <div class="image-caption", style="text-align: justify;">
+                        <strong>Figure 5: Comparison of performance gains across model generations.</strong>
+                        We evaluated models from two families, QwenVL and InternVL, each with an older and a newer version. All experiments used inputs of 32 frames for consistency.
+                        <strong>(a)(b)</strong>: The overall score of the models across various sizes on the indoor VSI-Bench and OpenBench; lighter colors denote older model versions; the green arrow indicates the performance gain of InternVL3.5-38B over InternVL2-40B.
+                        <strong>(c)</strong>: The MRA change on the <em>absolute distance</em> task when comparing InternVL3.5 to InternVL2. The green line highlights the performance gain on VSI-Bench, while the red line shows the performance drop on OpenBench.
+                        <br>
+                        <span style="font-size: 0.9em; color: #666; display: block; margin-top: 5px;">
+                        &dagger; For plotting purposes, models are grouped by their approximate parameter scale. Refer to Sec. F.4 in the supplementary material for detailed results.
+                        </span>
+                    </div>
+                </div>
+                <p class="body-text">
+                    Multiple recent models report dramatic performance gains on indoor spatial benchmarks like VSI-Bench compared to their predecessors in the same model family. As shown in Figure 5 (a), newer versions consistently outperform older ones by a substantial margin (e.g., +24.1 gain of InternVL3.5-38B to InternVL2-40B). As noted in InternVL3.5's technical report, more spatial QA data similar to the benchmarks are included, which we posit may explain the observed progress.
+                </p>
+
+                <p class="body-text">
+                    However, this progress fails to transfer to our open-world OpenBench, as shown in Figure 5 (b); newer model versions show only marginal performance gains over their predecessors.
+                    Notably, on the <em>absolute distance</em> task, which we adopt because its question templates are identical to those in VSI-Bench for a fair comparison and because measuring distance is a principled core ability of spatial perception, the newer InternVL3.5 models consistently underperform their InternVL2 predecessors (see Figure 5 (c)).
+                    This provides more direct evidence that these generalist models are not acquiring generalizable spatial intelligence, but are instead overfitting to the statistical patterns of the indoor benchmarks.
+                </p>
+        </div>
+    </div>
+</section>
+
+<section class="hero" id="linguistics" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
+    <div class="hero-body">
+        <div class="container abstract-container">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size:36px;">Linguistic priors or vision evidence?</h1>
+            </div>
+            <p class="body-text">
+            We posit that current general-purpose MLLMs fundamentally lack <strong>metric spatial perception</strong>. When presented with spatial tasks, they do not estimate geometric quantities—such as depth, distance, or physical size—directly from visual input. Instead, they approximate these values by drawing on linguistic priors and making semantic comparisons to familiar object categories.
+            </p>
+
+            <div style="margin-bottom: 60px;">
+                <div class="image-container" style="text-align: center; margin-bottom: 0px;">
+                    <img src="assets/blinding.png" class="diagram-image" alt="Pipeline" loading="lazy" style="max-width: 75%;">
+                    <div class="image-caption", style="text-align: justify;">
+                        <strong>Table 2: Performance gain of vision-enabled over vision-disabled on OpenBench</strong>, evaluated on the largest or latest models within each model family. &dagger; means evaluated on a tiny subset.
+                    </div>
+                </div>
+                <p class="body-text" style="margin-top: 0px;">
+                    To examine the extent to which models genuinely rely on visual evidence, we evaluate them under a blinding setup where visual inputs are removed while the textual questions remain unchanged. 
+                    As displayed in Table 2, most models exhibit only a marginal improvement (+2.2 to +6.3) when vision is enabled, even though our benchmark tasks are designed to heavily depend on visual information. 
+                    By contrast, human performance increases substantially (+22.6) when vision is available, indicating a much stronger dependence on visual input. 
+                    The limited gains on MLLMs suggest that MLLMs often rely on textual priors rather than truly grounded visual understanding.
+                </p>
+
+                <div class="image-container" style="text-align: center; margin-bottom: 0px;">
+                    <img src="assets/synthetic.png" class="diagram-image" alt="Pipeline" loading="lazy" style="max-width: 75%;">
+                    <div class="image-caption", style="text-align: justify;">
+                        <strong>Figure 6: Illustrations and results of the synthetic test set.</strong> The bar chart <strong>(left)</strong> shows the performance (MRA) drop of humans and Gemini-2.5-Pro on the <em>Size</em> and <em>Distance</em> tasks when evaluated on abnormal scenes versus normal scenes.
+                    </div>
+                </div>
+                <p class="body-text">
+                    To further investigate the extent of linguistic priors, we designed a controlled experiment using two sets of synthetic indoor scenes: a <em>Normal Set</em> with conventional object proportions, and an <em>Abnormal Set</em> in which object scales were deliberately manipulated while keeping the overall layout unchanged.
+                </p>
+
+                <p class="body-text">
+                    Gemini performance on both tasks degrades notably when evaluated on the <em>Abnormal Set</em>. In contrast, human performance shows only a marginal degradation on these same tasks, indicating that the models' spatial reasoning is strongly shaped by prior semantic knowledge: their metric estimates collapse when visual evidence contradicts familiar object statistics.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero" id="geometric" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
+    <div class="hero-body">
+        <div class="container abstract-container">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size:36px;">Reasoning with Geometric Information </h1>
+            </div>
+           <p class="body-text">
+                To identify the primary bottleneck in metric spatial tasks, we conduct an ablation study in which ground-truth geometric information is progressively revealed to the model. We focus on the <em>absolute distance</em> task, which queries the distance between two objects that may not appear in the same frame. The distance <em>d</em> can be calculated by:
+            </p>
+
+            <div style="text-align: center; margin: 25px 0; font-family: 'Times New Roman', Times, serif; font-size: 1.5rem; color: #333;">
+                <em>d</em> = || (<em>R</em> · <em>p</em><sub>2</sub> + <em>T</em>) - <em>p</em><sub>1</sub> ||
+            </div>
+
+            <div class="image-container" style="text-align: center; margin-bottom: 0px;">
+                    <img src="assets/ablation.png" class="diagram-image" alt="Pipeline" loading="lazy" style="max-width: 75%;">
+                    <div class="image-caption", style="text-align: justify;">
+                        <strong>Table 3: Ablation study of progressively providing additional geometric information on the absolute distance task.</strong>
+                    </div>
+            </div>
+            <p class="body-text">
+                The results in Table 3 reveal several clear trends. First, the <strong>Vanilla</strong> setting performs even worse than in the main benchmark, suggesting that enforcing a structured multi-step calculation introduces additional parsing complexity that disrupts the modeling that they can execute the mathematical computation without difficulty when all geometric quantities are provided. The sharp contrast between the <strong>All</strong> and <strong>Vanilla</strong> settings confirms that the dominant bottleneck is the extraction of precise metric information from the visual inputs, not the algebraic reasoning itself.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+
+<button id="back-to-top" title="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
+</button>
+</body>
+</html>
