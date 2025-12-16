@@ -1,0 +1,162 @@
+```html
+<style>
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+  }
+  .table th, .table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
+  }
+  .table th {
+    background-color: #f2f2f2;
+  }
+  .table td.green-check {
+    color: green;
+  }
+  .table td.red-cross {
+    color: red;
+  }
+</style>
+
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Benchmark</th>
+        <th>Input Modality</th>
+        <th>Relational</th>
+        <th>Metric-Static</th>
+        <th>Metric-Dynamic</th>
+        <th>Scene</th>
+        <th>Metric GT Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">OmniSpatial <a href="#">[29]</a></th>
+        <td>Single-view</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td class="red-cross">✗</td>
+        <td>Internet Mixed</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <th scope="row">SpatialBench <a href="#">[10]</a></th>
+        <td>Single-view</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td class="red-cross">✗</td>
+        <td>Embodied</td>
+        <td>MDE†, only auxiliary</td>
+      </tr>
+      <tr>
+        <th scope="row">SparBench <a href="#">[73]</a></th>
+        <td>Multi-view</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td class="red-cross">✗</td>
+        <td>Indoor</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <th scope="row">All-Angles-Bench <a href="#">[69]</a></th>
+        <td>Multi-view</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td class="red-cross">✗</td>
+        <td>Indoor</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <th scope="row">MMSI-Bench <a href="#">[67]</a></th>
+        <td>Multi-view</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td class="red-cross">✗</td>
+        <td>Internet Mixed</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <th scope="row">SpaCE-10 <a href="#">[25]</a></th>
+        <td>Video + Pointcloud</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td class="red-cross">✗</td>
+        <td>Indoor</td>
+        <td>Off-the-shelf Datasets <a href="#">[7, 17, 70]</a></td>
+      </tr>
+      <tr>
+        <th scope="row">SpatialRGPT-Bench <a href="#">[15]</a></th>
+        <td>Single-view</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td>Internet</td>
+        <td>MDE†</td>
+      </tr>
+      <tr>
+        <th scope="row">Open3D-VQA <a href="#">[74]</a></th>
+        <td>Single-view</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td>UAV</td>
+        <td>MDE†</td>
+      </tr>
+      <tr>
+        <th scope="row">CA-VQA <a href="#">[18]</a></th>
+        <td>Multi-view</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td>Indoor</td>
+        <td>Off-the-shelf Datasets <a href="#">[7]</a> + MDE†</td>
+      </tr>
+      <tr>
+        <th scope="row">Ego3D-Bench <a href="#">[24]</a></th>
+        <td>Multi-view</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td>Autonomous</td>
+        <td>Off-the-shelf Datasets <a href="#">[9, 12, 54]</a></td>
+      </tr>
+      <tr>
+        <th scope="row">VSI-Bench <a href="#">[65]</a></th>
+        <td>Video</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td class="red-cross">✗</td>
+        <td>Indoor</td>
+        <td>Off-the-shelf Datasets <a href="#">[7, 17, 70]</a></td>
+      </tr>
+      <tr>
+        <th scope="row">STI-Bench <a href="#">[37]</a></th>
+        <td>Video</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td>Indoor&Autonomous</td>
+        <td>Off-the-shelf Datasets <a href="#">[17, 54, 72]</a></td>
+      </tr>
+      <tr>
+        <th scope="row">OpenBench (ours)</th>
+        <td>Video/Stereo Video</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td class="green-check">✔</td>
+        <td>Open-World</td>
+        <td>Metric accurate sensors (Stereo, LiDAR & IMU)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```

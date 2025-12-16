@@ -1,571 +1,596 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs">
     <meta name="keywords" content="MLLMs, spatial reasoning, OpenBench, multimodal large language models">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs</title>
-    
-    <link rel="preload" href="https://airi-institute.github.io/assets/Inter/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="https://airi-institute.github.io/assets/Inter/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/back-button.css">
-    <link rel="stylesheet" href="css/menu.css">
-    
-    <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="js/main.js" defer></script>
-    <script src="js/copy.js" defer></script>
-    <script src="js/back-button.js" defer></script>
-    <script src="js/menu.js" defer></script>
-    
-    <style>
-        /* =========================================
-           1. 基础设置与重置
-           ========================================= */
-        body {
-            background-color: #ffffff !important;
-        }
-        .page-header, header {
-            background-color: #ffffff !important;
-            box-shadow: none !important;
-        }
-        .hero, .abstract-section, section {
-            background-color: #ffffff !important;
-        }
 
-        /* 链接样式 */
-        .author-name a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        .author-name a:hover {
-            color: #007bff;
-            text-decoration: underline;
-        }
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
 
-        /* 容器宽度限制 (优化阅读体验) */
-        .abstract-container, .hero .container {
-            max-width: 960px !important;
-        }
-
-        /* =========================================
-           2. 文字样式统一管理 (核心修改)
-           ========================================= */
-        
-        /* 【类型一】正文文字 (Body Text) */
-        .body-text {
-            font-family: 'InterRegular', Arial, sans-serif;
-            font-size: 20px;        /* 统一正文字号 */
-            color: #444444;         /* 统一深灰色 */
-            line-height: 1.4;       /* 统一行高 */
-            text-align: justify;    /* 统一两端对齐 */
-            margin-bottom: 15px;    /* 段落间距 */
-        }
-
-        /* 【类型二】图注文字 (Caption Text) */
-        .image-caption {
-            font-family: 'InterRegular', Arial, sans-serif;
-            font-size: 1.1rem;     /* 略小于正文 */
-            color: #555555;         /* 略浅的灰色 */
-            text-align: center;     /* 默认居中 (长文本可在HTML中 override 为 justify) */
-            margin-top: 12px;       /* 图片与图注的间距 */
-            line-height: 1.4;
-        }
-
-        /* 标题样式微调 */
-        h1 {
-            font-family: 'InterMedium', Arial, sans-serif;
-            margin-bottom: 20px;
-        }
-
-        /* =========================================
-           3. 图片与容器样式
-           ========================================= */
-        .image-container {
-            width: 100%;
-            text-align: center;
-            margin: 10px auto;
-            background-color: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-        }
-
-        .diagram-image {
-            max-width: 100%;
-            height: auto;
-            display: inline-block;
-            border: none !important;
-            box-shadow: none !important;
-            background: transparent !important; 
-            border-radius: 0 !important;
-        }
-
-        /* =========================================
-           4. 滚动跑马灯组件 (Carousel)
-           ========================================= */
-        .scroll-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            background: #fff;
-            padding: 15px 0;
-        }
-
-        .scroll-track {
-            display: flex;
-            width: max-content;
-            animation: scroll-left 60s linear infinite;
-        }
-        
-        .scroll-slide {
-            width: 15vw; /* 适配宽度 */
-            aspect-ratio: 16 / 9; /* 强制 1080p 比例 */
-            flex-shrink: 0;
-            padding: 0 5px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-
-        .scroll-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            display: block;
-        }
-
-        .scroll-container:hover .scroll-track {
-            animation-play-state: paused;
-        }
-
-        @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
-        }
-
-        /* =========================================
-           5. 表格样式
-           ========================================= */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            margin: 24px auto;
-        }
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1em;
-            table-layout: auto;
-        }
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .table th {
-            background-color: #f8f9fa;
-            color: #333;
-            font-weight: 600;
-        }
-        .table tr:nth-child(even) td {
-            background-color: #f9f9f9;
-        }
-        .table caption {
-            caption-side: bottom;
-            text-align: center;
-            color: #666666;
-            margin-top: 10px;
-        }
-
-        /* =========================================
-           6. 全局布局修正 (Teaser位置调整)
-           ========================================= */
-        #introduction .hero-body {
-            padding-top: 10px !important;
-            padding-bottom: 20px !important;
-        }
-
-        .authors-section {
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-            height: auto !important;
-        }
-
-        /* 使用负 margin 向上提 Teaser */
-        #introduction {
-            margin-top: -40px !important; 
-        }
-
-        #introduction .image-container:first-child {
-            margin-top: 0 !important;
-        }
-
-    .highlight-box {
-        background-color: #e0e0e0;
-        border-radius: 10px;
-        padding: 15px 25px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        display: block;         /* 1. 改为块级元素 (原来是 inline-block) */
-        width: fit-content;     /* 2. 宽度设为"适应内容" (否则会占满整行) */
-        margin: 30px auto;      /* 3. 上下30px，左右自动(居中关键) */
-        font-style: normal;
-        font-size: 20px;
-        border: 1px solid #ddd;
+    function gtag() {
+      dataLayer.push(arguments);
     }
 
-    </style>
-</head>
-<body>
-  <nav id="quick-access-menu">
-    <ul>
-      <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#construction">Construction</a></li>
-      <li><a href="#evaluation">Evaluation</a></li>
-      <li><a href="#mirage">Mirage</a></li>
-      <li><a href="#linguistics">Linguistic Priors</a></li>
-      <li><a href="#geometric">Ablation</a></li>
-    </ul>
-  </nav>
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
   
-
-  <header class="page-header">
-    <div class="header-content">
-        <h1 class="page-title">
-            <span class="title-highlight">From Indoor to Open World</span>
-            <span class="title-subtitle">Revealing the Spatial Reasoning Gap in MLLMs</span>
-        </h1>
-    </div>
-</header>
+  <link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
+<script src="https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min.js"></script>
 
 
-<section class="authors-section" style="margin-top: -70px;">
-    <div class="container">
-        <div class="authors-container" data-aos="fade-up" data-aos-duration="1000">
-            <div class="author">
-                <span class="author-name">
-                    <a href="https://scholar.google.com/citations?user=Y1TtPL8AAAAJ&hl=en" target="_blank">Mingrui Wu</a><sup>1</sup>
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <script type="module"
+      src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+  </head>
+  <body>
+
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu"
+          aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs</h1>
+              <!-- <h2 class="is-size-2">CVPR 2025</h2> -->
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=Y1TtPL8AAAAJ&hl=en">Mingrui Wu</a><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=CkDanj8AAAAJ&hl=en">Zhaozhi Wang</a><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=ysTmrEsAAAAJ&hl=en">Fangjinhua Wang</a><sup>2</sup>,
                 </span>
-            </div>
-            <div class="author">
-                <span class="author-name">
-                    <a href="https://scholar.google.com/citations?user=GuqoolgAAAAJ&hl=en" target="_blank">Jiaolong Yang</a><sup>3</sup>
+                  <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=GuqoolgAAAAJ&hl=en">Jiaolong Yang</a><sup>3</sup>,
                 </span>
-            </div>
-            <div class="author">
-                <span class="author-name">
-                    <a href="https://scholar.google.com/citations?user=CkDanj8AAAAJ&hl=en" target="_blank">Zhaozhi Wang</a><sup>1</sup>
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=YYH0BjEAAAAJ&hl=en">Marc Pollefeys</a><sup>2</sup>,
                 </span>
-            </div>
-            <div class="author">
-                <span class="author-name">
-                    <a href="https://scholar.google.com/citations?user=YYH0BjEAAAAJ&hl=en" target="_blank">Marc Pollefeys</a><sup>2</sup>
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=kCy8JG8AAAAJ&hl=en">Tong Zhang</a><sup>1,*</sup>
                 </span>
-            </div>
-            <div class="author">
-                <span class="author-name">
-                    <a href="https://scholar.google.com/citations?user=ysTmrEsAAAAJ&hl=en" target="_blank">Fangjinhua Wang</a><sup>2</sup>
+              </div>
+
+
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><sup>1</sup>University of Chinese Academy of Sciences, UCAS</span><br>
+                <span class="author-block"><sup>2</sup>ETH Zürich</span><br>
+                <span class="author-block"><sup>3</sup>Microsoft Research Asia</span>
+              </div>
+
+              <!-- <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper (Coming)</span>
+                  </a>
+                </span> -->
+
+              <!-- Github link -->
+              <span class="link-block">
+                <a href="" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
                 </span>
-            </div>
-            <div class="author">
-                <span class="author-name">
-                    <a href="https://scholar.google.com/citations?user=kCy8JG8AAAAJ&hl=en" target="_blank">Tong Zhang</a><sup>1,*</sup>
-                </span>
-            </div>
-        </div>
-        
-        <div class="affiliations-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-          <div class="affiliations-column">
-            <div class="affiliation">
-              <div class="affiliation-text"><sup>1</sup>University of Chinese Academy of Sciences</div>
-            </div>
-            <div class="affiliation">
-              <div class="affiliation-text"><sup>2</sup>ETH Zürich</div>
-            </div>
-            <div class="affiliation">
-              <div class="affiliation-text"><sup>3</sup>Microsoft Research Asia</div>
+                <span>Github</span>
+              </a>
+            </span>
+
+            <!-- ArXiv abstract Link -->
+            <span class="link-block">
+              <a href="" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="ai ai-arxiv"></i>
+              </span>
+              <span>arXiv</span>
+            </a>
+          </span>
+
+          <!-- Youtube link -->
+          <span class="link-block">
+            <a href="" target="_blank"
+            class="external-link button is-normal is-rounded is-dark">
+          🤗
+            <span>HuggingFace</span>
+          </a>
+          </span>
+
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-
-<section class="abstract-section" id="introduction" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
+  <!-- Teaser video-->
+<section class="hero is-small">
     <div class="hero-body">
-        <div class="container abstract-container">
-            
-            <div class="image-container" style="text-align: center; margin-bottom: 0px;">
-                <img src="assets/teaser.png" class="diagram-image" alt="Comparison between VSI-Bench and OpenBench" loading="lazy">
-                
-                <div class="image-caption" style="text-align: justify;">
-                    <strong>Figure 1: Comparison between VSI-Bench [Yang et al. 2025] and OpenBench (ours).</strong> 
-                    <strong>Top:</strong> Qualitative comparison of Gemini-2.5-Pro's responses, with and without vision inputs, on VSI-Bench and OpenBench. 
-                    <strong>Bottom:</strong> Quantitative comparison of two benchmarks in terms of evaluation coverage, scale range, semantic diversity, and accuracy drop without vision inputs.
-                    <br>
-                    <span style="font-size: 0.9em; color: #666; display: block; margin-top: 5px;">
-                        * The mean relative accuracy drop of GPT-4o on absolute distance tasks when vision inputs are disabled. A larger drop proves reliance on vision, not linguistic priors, in the unstructured layouts.
-                    </span>
-                </div>
-            </div>
-
-            <p class="body-text">
-                <strong>Drawbacks of existing visual spatial benchmarks.</strong> They either focus on overly simplified qualitative reasoning or rely on domain-specific indoor data, constrained by the lack of outdoor datasets with verifiable metric ground truth.
-            </p>
-            
-            <p class="body-text">
-                <strong>Customized Open-world Data and Benchmark.</strong> We collected pedestrian-perspective open-world data—rare in prior datasets—comprising stereo video, LiDAR point clouds, and IMU/GPS data, which provide precise 3D spatial ground truth in open-world environments. Based on this data, we constructed OpenBench, spanning all three tiers of the spatial hierarchy we defined: relational reasoning, metric reasoning, and crucially, kinematic reasoning.
-            </p>
-            
-            <p class="body-text">
-                <strong>The Mirage of Progress and Linguistic Priors in Spatial Intelligence.</strong> We found that the progress in spatial intelligence observed on indoor benchmarks is largely a mirage—unable to transfer to open-world settings. Our analysis suggests that the strong linguistic priors inherent in structured indoor scenes partly explain this failure.
-            </p>
+      <div class="container is-max-desktop has-text-centered">
         
-            <div class="image-container" style="text-align: center;margin-top: 50px; margin-bottom: 30px;">
-                    <img src="assets/tasks.png" class="diagram-image" alt="Tasks" loading="lazy">
-                    <div class="image-caption">
-                        <strong>Figure 2: Tasks and composition of OpenBench. </strong> 
-                    </div>
-                </div>
-
-                <p class="body-text">
-                    <strong>The spatial tasks in OpenBench are structured as a hierarchy of three tiers. </strong> 
-                    1) <em>Relational Reasoning</em>, the qualitative understanding of spatial configurations including relative arrangement, orientation, and overall scene structure; 
-                    2) <em>Static Metric Reasoning</em>, the quantitative estimation of absolute geometric properties such as distance, depth, and size; 
-                    3) <em>Dynamic Metric Reasoning</em>, the metric-aware understanding of scene dynamics, encompassing both object motion (e.g., velocity) and the observer's ego-motion.
-                </p>
+        <div style="font-size: 1.5rem; font-family:'Google Sans', sans-serif; margin-bottom: 30px; font-weight: bold;">
+          A quick test for your spatial intelligence!
         </div>
-    </div>
-</section>
 
-<section class="hero" id="construction" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
-    <div class="hero-body">
-
-        <div class="container abstract-container">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h1 style="font-size:36px;">Building an Open-World Visual Spatial Benchmark</h1>
-            </div>
-
-            <div style="margin-bottom: 60px;">
-                
-                <div class="image-container" style="text-align: center; margin-bottom: 30px;">
-                    <div class="scroll-container" id="imageCarousel">
-                            <div class="scroll-track">
-                            <div class="scroll-slide"><img src="assets/samples/ancient.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/art_center.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/basket.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/campus.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/green.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/mall.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/park.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/plaza2.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/sidewalk.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/street.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/tourist.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/urban2.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/traffic_center.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/site1.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/ancient.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/art_center.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/basket.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/campus.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/green.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/mall.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/park.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/plaza2.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/sidewalk.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/street.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/tourist.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/urban2.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/traffic_center.png" alt="sample"></div>
-                            <div class="scroll-slide"><img src="assets/samples/site1.png" alt="sample"></div>
-                        </div>
-                    </div>
-                    <div class="image-caption" style="text-align: justify;">
-                        <strong>Figure 3: Representative samples of our open-world pedestrian-perspective data.</strong> We collected multimodal videos with high semantic diversity, covering various scenes such as urban areas, campuses, parks, shopping centers, and tourist sites.
-                    </div>
-                </div>
-
-                <div class="image-container" style="text-align: center; margin-bottom: 30px;">
-                    <img src="assets/pipeline.png" class="diagram-image" alt="Pipeline" loading="lazy">
-                    
-                    <div class="image-caption">
-                        <strong>Figure 4: Overview of our benchmark construction pipeline.</strong> 
-                    </div>
-                </div>
-
-                <p class="body-text">
-                    Unlike previous works that primarily repurpose off-the-shelf datasets, OpenBench first establishes a purpose-built data foundation through a customized multi-sensor data collection effort that provides metrically-sound ground truth.
-                    Then, we designed a pipeline that extracts spatial information and generates question-answer pairs covering the full spectrum of spatial intelligence, finalized by a careful human curation phase to ensure benchmark quality. 
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="hero" id="evaluation" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
-    <div class="hero-body">
-
-        <div class="container abstract-container">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h1 style="font-size:36px;">Evaluation on OpenBench</h1>
-            </div>
-
-            <div style="margin-bottom: 60px;">
-                <div class="image-container" style="text-align: justify; margin-bottom: 30px;">
-                    <img src="assets/results.png" class="diagram-image" alt="Results" loading="lazy">
-                    
-                    <div class="image-caption" style="text-align: justify;">
-                        <strong>Table 1: Evaluation results for MLLMs.</strong> We highlight the best and second-best results for each sub-task in <span style="background-color: #b0b0b0; padding: 2px 6px; border-radius: 5px;">deeper gray</span> and <span style="background-color: #d3d3d3; padding: 2px 6px; border-radius: 5px;">light gray</span>.
-                    </div>
-                </div>
-
-                <div class="highlight-box">
-                      <b>Finding 1:</b> Human-model disparity peaks on spatial relations rather than on metric estimation.
-                </div>
-                <p class="body-text">
-                    Humans outperform models most dramatically on relational reasoning tasks (e.g., <em>relative direction</em>: 83.3 vs. 23&ndash;30 for top models), while the performance gap narrows on metric estimation tasks (e.g., <em>absolute distance</em>, <em>depth-aware-counting</em>).
-                    This indicates that what appears “intuitive” for humans&mdash;understanding relative spatial layouts&mdash;remains highly non-trivial for current MLLMs.
-                </p>
-
-                <div class="highlight-box">
-                      <b>Finding 2:</b> Performance on OpenBench is not uniformly consistent; rather, models exhibit distinct performance profiles with clear strengths and weaknesses that are often specific to the model family.
-                </div>
-                <p class="body-text">
-                    Beyond the top-performing Gemini-2.5-Pro, we find that model performance lacks a clear correlation between overall scores and specific sub-task capabilities. For instance, while Qwen3VL-32B-Instruct is the leading open-source model on average, it performs poorly on specific tasks, ranking 18th out of 20 on <em>relative direction</em> and 15th on <em>absolute distance</em>.
-                </p>
-                <p class="body-text">
-                    Moreover, we observe strong task specializations that appear to be inherent to model families. For instance, the OVIS2 family consistently excels at <em>relative direction</em>, and the InternVL3.5 family demonstrates a significant and persistent advantage in <em>depth-aware-counting</em>, with all its variants scoring above 40 on this task.
-                </p>
-                
-                <div class="highlight-box">
-                      <b>Finding 3:</b> MLLMs fail to reason about quantitative spatial dynamics. While performance on static spatial tasks varies across models, Dynamic Metric reasoning remains a universal failure case.
-                </div>
-                <p class="body-text">
-                    The top tier of spatial understanding involves estimating dynamic motion in the real world—a task requiring both metric precision and temporal consistency. Unlike static metric reasoning, where Gemini-2.5-Pro performs comparably to human annotators, all evaluated models exhibit a severe degradation when estimating motion-related quantities such as displacement or speed. 
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="hero" id="mirage" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
-    <div class="hero-body">
-        <div class="container abstract-container">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h1 style="font-size:36px;">Current Spatial Intelligence is a Mirage</h1>
-            </div>
-            <div class="image-container" style="text-align: center; margin-bottom: 30px;">
-                    <img src="assets/scaling.png" class="diagram-image" alt="Scaling Analysis" loading="lazy">
-                    <div class="image-caption", style="text-align: justify;">
-                        <strong>Figure 5: Comparison of performance gains across model generations.</strong>
-                        We evaluated models from two families, QwenVL and InternVL, each with an older and a newer version. All experiments used inputs of 32 frames for consistency.
-                        <strong>(a)(b)</strong>: The overall score of the models across various sizes on the indoor VSI-Bench and OpenBench; lighter colors denote older model versions; the green arrow indicates the performance gain of InternVL3.5-38B over InternVL2-40B.
-                        <strong>(c)</strong>: The MRA change on the <em>absolute distance</em> task when comparing InternVL3.5 to InternVL2. The green line highlights the performance gain on VSI-Bench, while the red line shows the performance drop on OpenBench.
-                        <br>
-                        <span style="font-size: 0.9em; color: #666; display: block; margin-top: 5px;">
-                        &dagger; For plotting purposes, models are grouped by their approximate parameter scale. Refer to Sec. F.4 in the supplementary material for detailed results.
-                        </span>
-                    </div>
-                </div>
-                <p class="body-text">
-                    Multiple recent models report dramatic performance gains on indoor spatial benchmarks like VSI-Bench compared to their predecessors in the same model family. As shown in Figure 5 (a), newer versions consistently outperform older ones by a substantial margin (e.g., +24.1 gain of InternVL3.5-38B to InternVL2-40B). As noted in InternVL3.5's technical report, more spatial QA data similar to the benchmarks are included, which we posit may explain the observed progress.
-                </p>
-
-                <p class="body-text">
-                    However, this progress fails to transfer to our open-world OpenBench, as shown in Figure 5 (b); newer model versions show only marginal performance gains over their predecessors.
-                    Notably, on the <em>absolute distance</em> task, which we adopt because its question templates are identical to those in VSI-Bench for a fair comparison and because measuring distance is a principled core ability of spatial perception, the newer InternVL3.5 models consistently underperform their InternVL2 predecessors (see Figure 5 (c)).
-                    This provides more direct evidence that these generalist models are not acquiring generalizable spatial intelligence, but are instead overfitting to the statistical patterns of the indoor benchmarks.
-                </p>
-        </div>
-    </div>
-</section>
-
-<section class="hero" id="linguistics" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
-    <div class="hero-body">
-        <div class="container abstract-container">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h1 style="font-size:36px;">Linguistic priors or vision evidence?</h1>
-            </div>
-            <p class="body-text">
-            We posit that current general-purpose MLLMs fundamentally lack <strong>metric spatial perception</strong>. When presented with spatial tasks, they do not estimate geometric quantities—such as depth, distance, or physical size—directly from visual input. Instead, they approximate these values by drawing on linguistic priors and making semantic comparisons to familiar object categories.
+        <div class="columns is-centered is-vcentered">
+          
+          <div class="column is-half">
+            <p style="font-size: 1.2rem; margin-bottom: 10px; font-weight: 600;">
+              What's the length of the bed in meters?
             </p>
+            <img src="./static/images/nocat.png" alt="Bed without reference" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+          </div>
 
-            <div style="margin-bottom: 60px;">
-                <div class="image-container" style="text-align: center; margin-bottom: 0px;">
-                    <img src="assets/blinding.png" class="diagram-image" alt="Pipeline" loading="lazy" style="max-width: 75%;">
-                    <div class="image-caption", style="text-align: justify;">
-                        <strong>Table 2: Performance gain of vision-enabled over vision-disabled on OpenBench</strong>, evaluated on the largest or latest models within each model family. &dagger; means evaluated on a tiny subset.
-                    </div>
-                </div>
-                <p class="body-text" style="margin-top: 0px;">
-                    To examine the extent to which models genuinely rely on visual evidence, we evaluate them under a blinding setup where visual inputs are removed while the textual questions remain unchanged. 
-                    As displayed in Table 2, most models exhibit only a marginal improvement (+2.2 to +6.3) when vision is enabled, even though our benchmark tasks are designed to heavily depend on visual information. 
-                    By contrast, human performance increases substantially (+22.6) when vision is available, indicating a much stronger dependence on visual input. 
-                    The limited gains on MLLMs suggest that MLLMs often rely on textual priors rather than truly grounded visual understanding.
-                </p>
-
-                <div class="image-container" style="text-align: center; margin-bottom: 0px;">
-                    <img src="assets/synthetic.png" class="diagram-image" alt="Pipeline" loading="lazy" style="max-width: 75%;">
-                    <div class="image-caption", style="text-align: justify;">
-                        <strong>Figure 6: Illustrations and results of the synthetic test set.</strong> The bar chart <strong>(left)</strong> shows the performance (MRA) drop of humans and Gemini-2.5-Pro on the <em>Size</em> and <em>Distance</em> tasks when evaluated on abnormal scenes versus normal scenes.
-                    </div>
-                </div>
-                <p class="body-text">
-                    To further investigate the extent of linguistic priors, we designed a controlled experiment using two sets of synthetic indoor scenes: a <em>Normal Set</em> with conventional object proportions, and an <em>Abnormal Set</em> in which object scales were deliberately manipulated while keeping the overall layout unchanged.
-                </p>
-
-                <p class="body-text">
-                    Gemini performance on both tasks degrades notably when evaluated on the <em>Abnormal Set</em>. In contrast, human performance shows only a marginal degradation on these same tasks, indicating that the models' spatial reasoning is strongly shaped by prior semantic knowledge: their metric estimates collapse when visual evidence contradicts familiar object statistics.
-                </p>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="hero" id="geometric" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300">
-    <div class="hero-body">
-        <div class="container abstract-container">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h1 style="font-size:36px;">Reasoning with Geometric Information </h1>
-            </div>
-           <p class="body-text">
-                To identify the primary bottleneck in metric spatial tasks, we conduct an ablation study in which ground-truth geometric information is progressively revealed to the model. We focus on the <em>absolute distance</em> task, which queries the distance between two objects that may not appear in the same frame. The distance <em>d</em> can be calculated by:
+          <div class="column is-half">
+            <p style="font-size: 1.2rem; margin-bottom: 10px; font-weight: 600;">
+              Would you change your mind after seeing this?
             </p>
+            <img src="./static/images/cat.png" alt="Bed with cat" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+          </div>
+        </div>
 
-            <div style="text-align: center; margin: 25px 0; font-family: 'Times New Roman', Times, serif; font-size: 1.5rem; color: #333;">
-                <em>d</em> = || (<em>R</em> · <em>p</em><sub>2</sub> + <em>T</em>) - <em>p</em><sub>1</sub> ||
-            </div>
+        <div style="margin-top: 30px;">
+          
+          <button id="reveal-btn" class="button is-info is-light is-rounded is-medium" onclick="revealAnswer()">
+            Click to reveal answer
+          </button>
+          
+          <div id="reveal-answer" style="
+              opacity: 0; 
+              height: 0;
+              overflow: hidden;
+              margin-top: 10px; 
+              font-size: 1.3rem; 
+              color: #209cee; 
+              font-weight: bold; 
+              transition: all 1.0s ease;
+          ">
+            This is a 1:3 miniature of a real bedroom; the actual length of the bed is 0.75 meters.
+          </div>
 
-            <div class="image-container" style="text-align: center; margin-bottom: 0px;">
-                    <img src="assets/ablation.png" class="diagram-image" alt="Pipeline" loading="lazy" style="max-width: 75%;">
-                    <div class="image-caption", style="text-align: justify;">
-                        <strong>Table 3: Ablation study of progressively providing additional geometric information on the absolute distance task.</strong>
-                    </div>
-            </div>
-            <p class="body-text">
-                The results in Table 3 reveal several clear trends. First, the <strong>Vanilla</strong> setting performs even worse than in the main benchmark, suggesting that enforcing a structured multi-step calculation introduces additional parsing complexity that disrupts the modeling that they can execute the mathematical computation without difficulty when all geometric quantities are provided. The sharp contrast between the <strong>All</strong> and <strong>Vanilla</strong> settings confirms that the dominant bottleneck is the extraction of precise metric information from the visual inputs, not the algebraic reasoning itself.
+          <div class="content has-text-justified" style="margin-top: 25px;">
+            <p class="has-text-black" style="font-size: 1.1rem;">
+              Gemini estimates the bed to be 1.9 meters long, citing <strong>the average dimensions of a double bed</strong>, even when presented with the contradictory visual evidence of the cat. This indicates that MLLMs rely heavily on <strong>linguistic priors</strong> for spatial reasoning, often disregarding critical visual cues.
             </p>
+          </div>
+          
+        </div>
+
+        <div style="margin-top: 50px;">
+          <img src="./static/images/scaling.png" alt="Spatial Intelligence Mirage Analysis" style="width: 100%; height: auto; border-radius: 5px;">
+          
+          <div class="content has-text-justified" style="margin-top: 15px;">
+            <p class="has-text-black" style="font-size: 1.1rem;">
+              The spatial intelligence observed on indoor benchmarks is a <strong>mirage</strong>: the significant and coherent performance gains on VSI-Bench[Yang et al. 2025] are largely a result of same-origin training data and linguistic priors in indoor scenes. These capabilities <strong>fail to transfer</strong> to open-world settings, where linguistic priors are weak.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function revealAnswer() {
+      const answerElement = document.getElementById('reveal-answer');
+      const btnElement = document.getElementById('reveal-btn');
+      
+      answerElement.style.opacity = '1';
+      answerElement.style.height = 'auto';
+      answerElement.style.overflow = 'visible';
+      
+      btnElement.style.display = 'none';
+    }
+  </script>
+
+  <script>
+    function revealAnswer() {
+      const answerElement = document.getElementById('reveal-answer');
+      const btnElement = document.getElementById('reveal-btn');
+      
+      // 显示答案
+      answerElement.style.opacity = '1';
+      answerElement.style.height = 'auto';
+      answerElement.style.overflow = 'visible';
+      
+      // 隐藏按钮
+      btnElement.style.display = 'none';
+    }
+  </script>
+
+  <script>
+    function revealAnswer() {
+      const answerElement = document.getElementById('reveal-answer');
+      const btnElement = document.getElementById('reveal-btn');
+      
+      // 显示答案（不仅改变透明度，也展开高度，避免布局跳动太生硬）
+      answerElement.style.opacity = '1';
+      answerElement.style.height = 'auto';
+      answerElement.style.overflow = 'visible';
+      
+      // 隐藏按钮
+      btnElement.style.display = 'none';
+    }
+  </script>
+
+  <!-- JS to trigger index 1 and highlight thumbnail -->
+  <script>
+    function highlightThumb(index) {
+      // Clear highlights from all thumbs
+      document.querySelectorAll('.thumb-img').forEach(img => {
+        img.style.border = '';
+      });
+
+      // Highlight the selected one
+      const selected = document.getElementById('thumb-' + index);
+      if (selected) {
+        selected.style.border = '3px solid #00aaff';
+        selected.style.borderRadius = '8px';
+      }
+    }
+
+    // window.onload = function () {
+    //   tab_gallery_click('2');
+    //   highlightThumb('2');
+    // };
+  </script>
+<section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-12">
+          <h2 class="title is-3">Abstract</h2>
+          
+          <img src="./static/images/teaser.png" alt="Project Teaser" style="width: 100%; height: auto; margin-bottom: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          
+          <div class="content has-text-justified">
+            <p>
+              While Multimodal Large Language Models (MLLMs) have achieved impressive performance on semantic tasks, their spatial intelligence—crucial for robust and grounded AI systems—remains underdeveloped. Existing benchmarks fall short of diagnosing this limitation: they either focus on overly simplified qualitative reasoning or rely on domain-specific indoor data, constrained by the lack of outdoor datasets with verifiable metric ground truth. To bridge this gap, we introduce a large-scale benchmark built from pedestrian-perspective videos captured with synchronized stereo cameras, LiDAR, and IMU/GPS sensors. This dataset provides metrically precise 3D information, enabling the automatic generation of spatial reasoning questions that span a hierarchical spectrum—from qualitative relational reasoning to quantitative metric and kinematic understanding. Evaluations reveal that the performance gains observed in structured indoor benchmarks vanish in open-world settings. Further analysis using synthetic abnormal scenes and blinding tests confirms that current MLLMs depend heavily on linguistic priors instead of grounded visual reasoning. Our benchmark thus provides a principled platform for diagnosing these limitations and advancing physically grounded spatial intelligence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<section class="section">
+    <div class="container is-max-desktop">
+      
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-12">
+          <h2 class="title is-3">Benchmark Construction</h2>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-12">
+          
+          <div class="image-carousel-container">
+            <div class="image-carousel-track">
+              
+              <div class="image-carousel-slide"><img src="./static/images/samples/ancient.png" alt="ancient"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/art_center.png" alt="art_center"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/basket.png" alt="basket"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/campus.png" alt="campus"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/green.png" alt="green"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/mall.png" alt="mall"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/park.png" alt="park"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/plaza2.png" alt="plaza2"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/sidewalk.png" alt="sidewalk"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/street.png" alt="street"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/tourist.png" alt="tourist"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/urban2.png" alt="urban2"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/traffic_center.png" alt="traffic_center"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/site1.png" alt="site1"></div>
+
+              <div class="image-carousel-slide"><img src="./static/images/samples/ancient.png" alt="ancient"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/art_center.png" alt="art_center"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/basket.png" alt="basket"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/campus.png" alt="campus"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/green.png" alt="green"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/mall.png" alt="mall"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/park.png" alt="park"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/plaza2.png" alt="plaza2"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/sidewalk.png" alt="sidewalk"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/street.png" alt="street"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/tourist.png" alt="tourist"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/urban2.png" alt="urban2"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/traffic_center.png" alt="traffic_center"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/site1.png" alt="site1"></div>
+              
+            </div>
+          </div>
+
+          <div style="margin-top: 50px;">
+            <img src="./static/images/tasks.png" alt="Tasks Overview" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
 
         </div>
+      </div>
     </div>
-</section>
+  </section>
+
+  <style>
+    /* 容器样式 */
+    .image-carousel-container {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    /* 轨道样式 */
+    .image-carousel-track {
+      display: flex;
+      width: calc(320px * 14 * 2); 
+      animation: scroll 60s linear infinite; 
+    }
+
+    /* 单张图片容器 */
+    .image-carousel-slide {
+      width: 320px;
+      flex-shrink: 0;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 图片样式 - 强制保持 16:9 */
+    .image-carousel-slide img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9; 
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 动画 */
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-320px * 14));
+      }
+    }
+    
+    .image-carousel-track:hover {
+      animation-play-state: paused;
+    }
+  </style>
 
 
-<button id="back-to-top" title="Back to top">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 15l-6-6-6 6"/>
-  </svg>
-</button>
-</body>
+<section class="section">
+    <div class="container is-max-widescreen">
+      
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-12">
+          <h2 class="title is-3">Evaluation on OpenBench</h2>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-12">
+          <div class="table-container">
+            <table class="table is-bordered is-striped is-hoverable is-narrow is-fullwidth leaderboard-table">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="v-middle">Methods</th>
+                  <th rowspan="2" class="v-middle">Rank</th>
+                  <th rowspan="2" class="v-middle">Avg.</th>
+                  <th colspan="3" class="header-rel">Relational (<span class="math-font">MCA</span>)</th>
+                  <th colspan="3" class="header-static">Static Metric (<span class="math-font">NA</span>)</th>
+                  <th colspan="3" class="header-dynamic">Dynamic Metric (<span class="math-font">NA</span>)</th>
+                </tr>
+                <tr>
+                  <th class="rotate"><div>Rel. Dis.</div></th>
+                  <th class="rotate"><div>Rel. Dir.</div></th>
+                  <th class="rotate"><div>Qual. EM</div></th>
+                  <th class="rotate"><div>Obj. Loc.</div></th>
+                  <th class="rotate"><div>Abs. Dis.</div></th>
+                  <th class="rotate"><div>Depth Count</div></th>
+                  <th class="rotate"><div>Abs. Displ.</div></th>
+                  <th class="rotate"><div>Abs. Speed</div></th>
+                  <th class="rotate"><div>Quan. EM</div></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="group-row"><td colspan="12">Against Human on tiny</td></tr>
+                <tr><td>Human-level</td><td>1</td><td>60.3</td><td>85.7</td><td>83.3</td><td>73.7</td><td>43.9</td><td>39.2</td><td>67.5</td><td>42.9</td><td>65.8</td><td>66.8</td></tr>
+                <tr><td>Gemini-2.5-Pro</td><td>2</td><td>36.8</td><td>53.1</td><td>23.1</td><td>46.7</td><td>39.7</td><td>33.8</td><td>40.3</td><td>22.2</td><td>27.8</td><td>40.0</td></tr>
+                <tr><td>GPT-5</td><td>4</td><td>27.9</td><td>37.5</td><td>30.8</td><td>40.0</td><td>35.3</td><td>25.3</td><td>12.8</td><td>9.2</td><td>31.4</td><td>33.0</td></tr>
+                <tr><td>Qwen3VL-32B-Instruct</td><td>3</td><td>31.9</td><td>56.3</td><td>23.1</td><td>33.3</td><td>26.2</td><td>10.9</td><td>32.8</td><td>14.4</td><td>37.2</td><td>52.3</td></tr>
+                <tr class="group-row"><td colspan="12">Closed-source Models</td></tr>
+                <tr><td>Gemini-2.5-Pro</td><td>1</td><td class="best-score">37.2</td><td class="best-score">50.0</td><td>28.1</td><td class="best-score">52.5</td><td class="best-score">37.4</td><td class="best-score">28.1</td><td>37.9</td><td class="best-score">26.8</td><td>31.1</td><td class="second-score">40.8</td></tr>
+                <tr><td>Gemini-2.5-Flash</td><td>6</td><td>19.5</td><td>17.9</td><td>2.8</td><td class="second-score">50.6</td><td>22.7</td><td>16.1</td><td>26.8</td><td>8.1</td><td>6.8</td><td>20.0</td></tr>
+                <tr><td>GPT-5</td><td>2</td><td>29.7</td><td>34.4</td><td>33.1</td><td>49.5</td><td class="second-score">32.5</td><td>23.7</td><td>20.9</td><td>10.5</td><td>33.8</td><td>30.6</td></tr>
+                <tr><td>GPT-4o</td><td>5</td><td>25.9</td><td>30.8</td><td>29.1</td><td>42.2</td><td>22.9</td><td class="second-score">27.0</td><td>21.6</td><td>17.5</td><td>15.5</td><td>28.8</td></tr>
+                <tr><td>Claude-3.7-Sonnet</td><td>4</td><td>26.5</td><td>38.9</td><td>32.8</td><td>47.6</td><td>31.3</td><td>22.4</td><td>31.5</td><td>5.2</td><td>30.1</td><td>5.0</td></tr>
+                <tr><td>Doubao-Seed-1.6V</td><td>3</td><td>27.3</td><td>35.9</td><td>24.1</td><td>44.0</td><td>16.6</td><td>18.9</td><td>38.7</td><td class="second-score">25.7</td><td>31.8</td><td>9.2</td></tr>
+                <tr class="group-row"><td colspan="12">Open-source Models</td></tr>
+                <tr><td>InternVL2-8B</td><td>14</td><td>24.5</td><td>35.1</td><td>31.7</td><td>40.8</td><td>21.8</td><td>17.8</td><td>39.7</td><td>15.0</td><td>17.8</td><td>3.8</td></tr>
+                <tr><td>InternVL2-40B</td><td>16</td><td>22.9</td><td>36.7</td><td>21.0</td><td>41.9</td><td>21.1</td><td>19.2</td><td>33.0</td><td>10.0</td><td>22.0</td><td>1.7</td></tr>
+                <tr><td>InternVL3.5-2B</td><td>18</td><td>21.7</td><td>34.8</td><td>32.1</td><td>40.1</td><td>3.8</td><td>2.7</td><td>40.8</td><td>11.5</td><td>16.6</td><td>17.0</td></tr>
+                <tr><td>InternVL3.5-4B</td><td>15</td><td>23.7</td><td>37.6</td><td>32.8</td><td>44.8</td><td>4.6</td><td>6.7</td><td>40.7</td><td>15.6</td><td>23.4</td><td>10.7</td></tr>
+                <tr><td>InternVL3.5-8B</td><td>4</td><td>28.5</td><td>37.6</td><td>33.6</td><td>47.3</td><td>12.2</td><td>13.2</td><td>42.3</td><td>20.3</td><td>30.2</td><td>21.5</td></tr>
+                <tr><td>InternVL3.5-14B</td><td>4</td><td>28.5</td><td>40.3</td><td>33.9</td><td>47.1</td><td>15.5</td><td>15.6</td><td class="best-score">42.8</td><td>21.8</td><td>32.1</td><td>9.0</td></tr>
+                <tr><td>InternVL3.5-38B</td><td>8</td><td>26.9</td><td>40.2</td><td>34.0</td><td>45.3</td><td>11.6</td><td>7.7</td><td class="second-score">42.7</td><td>20.3</td><td>31.4</td><td>11.1</td></tr>
+                <tr><td>Qwen2.5VL-32B-Instruct</td><td>3</td><td>30.0</td><td>41.7</td><td>32.7</td><td>44.4</td><td>23.9</td><td>24.0</td><td>27.7</td><td>16.7</td><td>32.8</td><td>27.3</td></tr>
+                <tr><td>Qwen2.5VL-72B-Instruct</td><td>11</td><td>26.5</td><td>38.5</td><td>20.1</td><td>46.5</td><td>27.7</td><td>26.0</td><td>29.4</td><td>9.4</td><td>29.7</td><td>9.8</td></tr>
+                <tr><td>Qwen3VL-2B-Instruct</td><td>21</td><td>18.4</td><td>33.7</td><td>32.4</td><td>37.5</td><td>2.2</td><td>4.2</td><td>22.4</td><td>6.6</td><td>19.0</td><td>12.5</td></tr>
+                <tr><td>Qwen3VL-4B-Instruct</td><td>19</td><td>21.1</td><td>34.8</td><td>23.7</td><td>46.4</td><td>3.9</td><td>6.9</td><td>24.1</td><td>13.6</td><td>20.4</td><td>17.5</td></tr>
+                <tr><td>Qwen3VL-8B-Instruct</td><td>2</td><td>31.2</td><td>38.3</td><td>31.2</td><td>49.3</td><td>21.0</td><td>15.1</td><td>33.3</td><td>21.3</td><td class="second-score">34.3</td><td>37.8</td></tr>
+                <tr><td>Qwen3VL-32B-Instruct</td><td>1</td><td class="second-score">32.2</td><td class="second-score">41.9</td><td>28.8</td><td>47.1</td><td>25.3</td><td>11.5</td><td>30.2</td><td>18.6</td><td class="best-score">36.8</td><td class="best-score">49.2</td></tr>
+                <tr><td>LLaVA-OneVision-0.5B</td><td>20</td><td>19.6</td><td>27.9</td><td>23.8</td><td>40.8</td><td>13.5</td><td>13.1</td><td>19.9</td><td>10.3</td><td>13.6</td><td>15.7</td></tr>
+                <tr><td>LLaVA-OneVision-7B</td><td>13</td><td>25.7</td><td>35.1</td><td>32.7</td><td>40.8</td><td>16.1</td><td>25.5</td><td>25.6</td><td>16.8</td><td>28.3</td><td>13.4</td></tr>
+                <tr><td>LLaVA-OneVision-72B</td><td>8</td><td>26.9</td><td>38.6</td><td>32.2</td><td>41.7</td><td>19.6</td><td>18.3</td><td>35.3</td><td>19.2</td><td>23.0</td><td>16.6</td></tr>
+                <tr><td>LLaVA-Video-Qwen2-7B</td><td>16</td><td>22.9</td><td>37.1</td><td>31.2</td><td>40.9</td><td>17.6</td><td>22.1</td><td>18.2</td><td>17.5</td><td>19.0</td><td>5.7</td></tr>
+                <tr><td>LLaVA-Video-Qwen2-72B</td><td>6</td><td>28.3</td><td>39.8</td><td>31.1</td><td>42.2</td><td>23.5</td><td>18.0</td><td>34.2</td><td>20.7</td><td>29.9</td><td>17.0</td></tr>
+                <tr><td>Ovis2-4B</td><td>12</td><td>25.9</td><td>34.6</td><td>30.3</td><td>40.1</td><td>16.1</td><td>18.6</td><td>36.8</td><td>17.7</td><td>22.6</td><td>18.7</td></tr>
+                <tr><td>Ovis2-16B</td><td>7</td><td>28.1</td><td>37.0</td><td class="best-score">35.8</td><td>42.0</td><td>20.0</td><td>6.2</td><td>41.7</td><td>21.7</td><td>23.3</td><td>28.2</td></tr>
+                <tr><td>Ovis2-34B</td><td>10</td><td>26.8</td><td>37.3</td><td class="second-score">35.5</td><td>40.8</td><td>19.1</td><td>13.1</td><td>37.5</td><td>18.7</td><td>27.4</td><td>15.5</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="content has-text-justified" style="font-size: 0.9rem; margin-top: 10px;">
+            <p>
+              <strong>Evaluation results for MLLMs.</strong> We highlight the best and second-best results for each sub-task in <span class="best-score" style="padding: 0 4px;">deeper gray</span> and <span class="second-score" style="padding: 0 4px;">light gray</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* Table Styling */
+    .leaderboard-table {
+      font-size: 1rem; /* 稍微调大了一点字号 */
+    }
+    
+    /* Center align table headers and cells */
+    .leaderboard-table th, 
+    .leaderboard-table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    /* Column Headers Background Colors */
+    .header-rel { background-color: #dcfce7 !important; } /* green!20 */
+    .header-static { background-color: #f3e8ff !important; } /* purple!20 */
+    .header-dynamic { background-color: #fce7f3 !important; } /* pink!20 */
+    
+    /* Group Row Styling */
+    .group-row td {
+      background-color: #f0fdf4 !important; 
+      font-style: italic; 
+      font-weight: 600;
+      text-align: left;
+      color: #000;
+    }
+
+    /* Highlighting (Best and Second Best) */
+    /* 修改点 2: 字体颜色改为黑色 (inherit)，并加粗以示区别 */
+    .best-score { 
+      background-color: #a8a8a8 !important; /* deeper-gray */
+      color: black !important; /* 强制黑色 */
+      font-weight: bold;
+    }
+    .second-score { 
+      background-color: #e5e7eb !important; /* light-gray */
+      color: black !important;
+    }
+
+    /* Rotated Headers */
+    .leaderboard-table th.rotate {
+      height: 100px;
+      white-space: nowrap;
+      vertical-align: bottom;
+      padding: 0;
+    }
+    
+    .leaderboard-table th.rotate > div {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-align: left;
+      margin: 0 auto;
+      padding: 5px;
+    }
+
+    /* Prevent text wrapping in first column */
+    .leaderboard-table td:first-child {
+      white-space: nowrap;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    /* Math font simulation */
+    .math-font {
+      font-family: "Latin Modern Math", "Cambria Math", serif;
+      font-style: italic;
+    }
+  </style>
+  
+
+
+      <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+          <h2 class="title">Citation</h2>
+          <p>If you find our work useful or interesting, please consider citing our paper:</p>
+          <!-- <pre><code>@article{ren2025fds,
+  title={FDS: Frequency-Aware Denoising Score for Text-Guided Latent Diffusion Image Editing},
+  author={Ren, Yufan and Jiang, Zicong and Zhang, Tong and Forchhammer, Sören and Süsstrunk, Sabine},
+  journal={arXiv preprint arXiv:2503.19191},
+  year={2025}
+} -->
+          </code></pre>
+        </div>
+      </section>
+
+    <footer class="footer">
+      <div class="container">
+
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                This website is licensed under a <a rel="license"
+                  href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                  Commons Attribution-ShareAlike 4.0 International License</a>.
+              </p>
+              <p>
+                This webpage template is from <a
+                  href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
+
