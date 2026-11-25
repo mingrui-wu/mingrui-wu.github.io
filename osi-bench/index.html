@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="description" content="From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs">
-    <meta name="keywords" content="MLLMs, spatial reasoning, OpenBench, OSI-Bench, multimodal large language models">
+    <meta name="keywords" content="MLLMs, spatial reasoning, OSI-Bench, multimodal large language models">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://mingrui-wu.github.io/osi-bench/">
+    <link rel="icon" href="../files/icon.png" type="image/png">
     <title>From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs</title>
-
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -21,53 +22,23 @@
 
     gtag('config', 'G-PYVRSFMDRL');
   </script>
-  
-  <link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
-<script src="https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min.js"></script>
-
 
     <link
       href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
       rel="stylesheet">
 
     <link rel="stylesheet" href="./static/css/bulma.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <link rel="stylesheet" href="./static/css/index.css">
-
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="./static/js/fontawesome.all.min.js"></script>
-    <script src="./static/js/bulma-carousel.min.js"></script>
-    <script src="./static/js/bulma-slider.min.js"></script>
-    <script src="./static/js/index.js"></script>
-    <script type="module"
-      src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+    <script defer src="./static/js/index.js"></script>
   </head>
   <body>
-
-
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a role="button" class="navbar-burger" aria-label="menu"
-          aria-expanded="false">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-    </nav>
-
     <section class="hero">
       <div class="hero-body">
         <div class="container is-max-desktop">
           <div class="columns is-centered">
             <div class="column has-text-centered">
               <h1 class="title is-1 publication-title">From Indoor to Open World: Revealing the Spatial Reasoning Gap in MLLMs</h1>
-              <!-- <h2 class="is-size-2">CVPR 2025</h2> -->
+
               <div class="is-size-5 publication-authors">
                 <span class="author-block">
                   <a href="https://scholar.google.com/citations?user=Y1TtPL8AAAAJ&hl=en">Mingrui Wu</a><sup>1</sup>,</span>
@@ -87,8 +58,6 @@
                 </span>
               </div>
 
-
-
               <div class="is-size-5 publication-authors">
                 <span class="author-block"><sup>1</sup>University of Chinese Academy of Sciences, UCAS</span><br>
                 <span class="author-block"><sup>2</sup>ETH Zürich</span><br>
@@ -97,51 +66,19 @@
               <div align="center">
                 <small>* Corresponding Author</small>
               </div>
-
-              <!-- <div class="column has-text-centered">
-                <div class="publication-links">
-                  <span class="link-block">
-                    <a href="https://arxiv.org/abs/" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                    </span>
-                    <span>Paper (Coming)</span>
-                  </a>
-                </span> -->
-
-              <!-- Github link -->
-              <span class="link-block">
-                <a href="https://github.com/mingrui-wu/OSI-Bench" target="_blank"
-                class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                  <i class="fab fa-github"></i>
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://github.com/mingrui-wu/OSI-Bench" target="_blank" rel="noopener noreferrer"
+                    class="external-link button is-normal is-rounded is-dark">GitHub</a>
                 </span>
-                <span>Github</span>
-              </a>
-            </span>
-
-            <!-- ArXiv abstract Link -->
-            <span class="link-block">
-              <a href="https://arxiv.org/abs/2512.19683" target="_blank"
-              class="external-link button is-normal is-rounded is-dark">
-              <span class="icon">
-                <i class="ai ai-arxiv"></i>
-              </span>
-              <span>arXiv</span>
-            </a>
-          </span>
-
-          <span class="link-block">
-            <a href="https://huggingface.co/datasets/HarmlessSR07/OSI-Bench" target="_blank"
-            class="external-link button is-normal is-rounded is-dark">
-          🤗
-            <span>HuggingFace</span>
-          </a>
-          </span>
-
-                </div>
-
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2512.19683" target="_blank" rel="noopener noreferrer"
+                    class="external-link button is-normal is-rounded is-dark">arXiv</a>
+                </span>
+                <span class="link-block">
+                  <a href="https://huggingface.co/datasets/HarmlessSR07/OSI-Bench" target="_blank" rel="noopener noreferrer"
+                    class="external-link button is-normal is-rounded is-dark">Hugging Face</a>
+                </span>
               </div>
             </div>
           </div>
@@ -149,48 +86,38 @@
       </div>
     </section>
 
-  <!-- Teaser video-->
 <section class="hero is-small">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
-        
+
         <div style="font-size: 1.5rem; font-family:'Google Sans', sans-serif; margin-bottom: 30px; font-weight: bold;">
           A quick test for your spatial intelligence!
         </div>
 
         <div class="columns is-centered is-vcentered">
-          
+
           <div class="column is-half">
             <p style="font-size: 1.2rem; margin-bottom: 10px; font-weight: 600;">
               What's the length of the bed in meters?
             </p>
-            <img src="./static/images/nocat.png" alt="Bed without reference" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+            <img src="./static/images/nocat.png" alt="Bed without reference" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);" width="1343" height="684" decoding="async">
           </div>
 
           <div class="column is-half">
             <p style="font-size: 1.2rem; margin-bottom: 10px; font-weight: 600;">
               Would you change your mind after seeing this?
             </p>
-            <img src="./static/images/cat.png" alt="Bed with cat" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+            <img src="./static/images/cat.png" alt="Bed with cat" style="width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);" width="1343" height="684" decoding="async">
           </div>
         </div>
 
         <div style="margin-top: 30px;">
-          
-          <button id="reveal-btn" class="button is-info is-light is-rounded is-medium" onclick="revealAnswer()">
+
+          <button id="reveal-btn" class="button is-info is-light is-rounded is-medium" type="button" aria-controls="reveal-answer" aria-expanded="false">
             Click to reveal answer
           </button>
-          
-          <div id="reveal-answer" style="
-              opacity: 0; 
-              height: 0;
-              overflow: hidden;
-              margin-top: 10px; 
-              font-size: 1.3rem; 
-              color: #209cee; 
-              font-weight: bold; 
-              transition: all 1.0s ease;
-          ">
+
+          <div id="reveal-answer" class="reveal-answer" role="status" hidden>
             This is a 1:3 miniature of a real bedroom; the actual length of the bed is 0.75 meters.
           </div>
 
@@ -199,12 +126,12 @@
               Gemini estimates the bed to be 1.9 meters long, citing <strong>the average dimensions of a double bed</strong>, even when presented with the contradictory visual evidence of the cat. This indicates that MLLMs rely heavily on <strong>linguistic priors</strong> for spatial reasoning, often disregarding critical visual cues.
             </p>
           </div>
-          
+
         </div>
 
         <div style="margin-top: 50px;">
-          <img src="./static/images/scaling.png" alt="Spatial Intelligence Mirage Analysis" style="width: 100%; height: auto; border-radius: 5px;">
-          
+          <img src="./static/images/scaling.png" alt="Spatial Intelligence Mirage Analysis" style="width: 100%; height: auto; border-radius: 5px;" width="3732" height="812" decoding="async" loading="lazy">
+
           <div class="content has-text-justified" style="margin-top: 15px;">
             <p class="has-text-black" style="font-size: 1.1rem;">
               The spatial intelligence observed on indoor benchmarks is a <strong>mirage</strong>: the significant and coherent performance gains on VSI-Bench[Yang et al. 2025] are largely a result of same-origin training data and linguistic priors in indoor scenes. These capabilities <strong>fail to transfer</strong> to open-world settings, where linguistic priors are weak.
@@ -216,78 +143,14 @@
     </div>
   </section>
 
-  <script>
-    function revealAnswer() {
-      const answerElement = document.getElementById('reveal-answer');
-      const btnElement = document.getElementById('reveal-btn');
-      
-      answerElement.style.opacity = '1';
-      answerElement.style.height = 'auto';
-      answerElement.style.overflow = 'visible';
-      
-      btnElement.style.display = 'none';
-    }
-  </script>
-
-  <script>
-    function revealAnswer() {
-      const answerElement = document.getElementById('reveal-answer');
-      const btnElement = document.getElementById('reveal-btn');
-      
-      // 显示答案
-      answerElement.style.opacity = '1';
-      answerElement.style.height = 'auto';
-      answerElement.style.overflow = 'visible';
-      
-      // 隐藏按钮
-      btnElement.style.display = 'none';
-    }
-  </script>
-
-  <script>
-    function revealAnswer() {
-      const answerElement = document.getElementById('reveal-answer');
-      const btnElement = document.getElementById('reveal-btn');
-      
-      // 显示答案（不仅改变透明度，也展开高度，避免布局跳动太生硬）
-      answerElement.style.opacity = '1';
-      answerElement.style.height = 'auto';
-      answerElement.style.overflow = 'visible';
-      
-      // 隐藏按钮
-      btnElement.style.display = 'none';
-    }
-  </script>
-
-  <!-- JS to trigger index 1 and highlight thumbnail -->
-  <script>
-    function highlightThumb(index) {
-      // Clear highlights from all thumbs
-      document.querySelectorAll('.thumb-img').forEach(img => {
-        img.style.border = '';
-      });
-
-      // Highlight the selected one
-      const selected = document.getElementById('thumb-' + index);
-      if (selected) {
-        selected.style.border = '3px solid #00aaff';
-        selected.style.borderRadius = '8px';
-      }
-    }
-
-    // window.onload = function () {
-    //   tab_gallery_click('2');
-    //   highlightThumb('2');
-    // };
-  </script>
 <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-12">
           <h2 class="title is-3">Abstract</h2>
-          
-          <img src="./static/images/teaser.png" alt="Project Teaser" style="width: 100%; height: auto; margin-bottom: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-          
+
+          <img src="./static/images/teaser.png" alt="Project Teaser" style="width: 100%; height: auto; margin-bottom: 25px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" width="5966" height="2877" decoding="async" loading="lazy">
+
           <div class="content has-text-justified">
             <p>
               While Multimodal Large Language Models (MLLMs) have achieved impressive performance on semantic tasks, their spatial intelligence—crucial for robust and grounded AI systems—remains underdeveloped. Existing benchmarks fall short of diagnosing this limitation: they either focus on overly simplified qualitative reasoning or rely on domain-specific indoor data, constrained by the lack of outdoor datasets with verifiable metric ground truth. To bridge this gap, we introduce a large-scale benchmark built from pedestrian-perspective videos captured with synchronized stereo cameras, LiDAR, and IMU/GPS sensors. This dataset provides metrically precise 3D information, enabling the automatic generation of spatial reasoning questions that span a hierarchical spectrum—from qualitative relational reasoning to quantitative metric and kinematic understanding. Evaluations reveal that the performance gains observed in structured indoor benchmarks vanish in open-world settings. Further analysis using synthetic abnormal scenes and blinding tests confirms that current MLLMs depend heavily on linguistic priors instead of grounded visual reasoning. Our benchmark thus provides a principled platform for diagnosing these limitations and advancing physically grounded spatial intelligence.
@@ -296,10 +159,11 @@
         </div>
       </div>
     </div>
+  </section>
 
 <section class="section">
     <div class="container is-max-desktop">
-      
+
       <div class="columns is-centered has-text-centered">
         <div class="column is-12">
           <h2 class="title is-3">Benchmark Construction</h2>
@@ -308,45 +172,45 @@
 
       <div class="columns is-centered">
         <div class="column is-12">
-          
+
           <div class="image-carousel-container">
             <div class="image-carousel-track">
-              
-              <div class="image-carousel-slide"><img src="./static/images/samples/ancient.png" alt="ancient"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/art_center.png" alt="art_center"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/basket.png" alt="basket"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/campus.png" alt="campus"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/green.png" alt="green"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/mall.png" alt="mall"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/park.png" alt="park"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/plaza2.png" alt="plaza2"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/sidewalk.png" alt="sidewalk"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/street.png" alt="street"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/tourist.png" alt="tourist"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/urban2.png" alt="urban2"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/traffic_center.png" alt="traffic_center"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/site1.png" alt="site1"></div>
 
-              <div class="image-carousel-slide"><img src="./static/images/samples/ancient.png" alt="ancient"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/art_center.png" alt="art_center"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/basket.png" alt="basket"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/campus.png" alt="campus"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/green.png" alt="green"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/mall.png" alt="mall"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/park.png" alt="park"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/plaza2.png" alt="plaza2"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/sidewalk.png" alt="sidewalk"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/street.png" alt="street"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/tourist.png" alt="tourist"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/urban2.png" alt="urban2"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/traffic_center.png" alt="traffic_center"></div>
-              <div class="image-carousel-slide"><img src="./static/images/samples/site1.png" alt="site1"></div>
-              
+              <div class="image-carousel-slide"><img src="./static/images/samples/ancient.png" alt="ancient" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/art_center.png" alt="art_center" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/basket.png" alt="basket" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/campus.png" alt="campus" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/green.png" alt="green" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/mall.png" alt="mall" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/park.png" alt="park" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/plaza2.png" alt="plaza2" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/sidewalk.png" alt="sidewalk" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/street.png" alt="street" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/tourist.png" alt="tourist" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/urban2.png" alt="urban2" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/traffic_center.png" alt="traffic_center" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/site1.png" alt="site1" width="1920" height="1080" decoding="async" loading="lazy"></div>
+
+              <div class="image-carousel-slide"><img src="./static/images/samples/ancient.png" alt="ancient" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/art_center.png" alt="art_center" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/basket.png" alt="basket" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/campus.png" alt="campus" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/green.png" alt="green" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/mall.png" alt="mall" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/park.png" alt="park" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/plaza2.png" alt="plaza2" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/sidewalk.png" alt="sidewalk" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/street.png" alt="street" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/tourist.png" alt="tourist" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/urban2.png" alt="urban2" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/traffic_center.png" alt="traffic_center" width="1920" height="1080" decoding="async" loading="lazy"></div>
+              <div class="image-carousel-slide"><img src="./static/images/samples/site1.png" alt="site1" width="1920" height="1080" decoding="async" loading="lazy"></div>
+
             </div>
           </div>
 
           <div style="margin-top: 50px;">
-            <img src="./static/images/tasks.png" alt="Tasks Overview" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="./static/images/tasks.png" alt="Tasks Overview" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" width="5078" height="2554" decoding="async" loading="lazy">
           </div>
 
         </div>
@@ -354,61 +218,9 @@
     </div>
   </section>
 
-  <style>
-    /* 容器样式 */
-    .image-carousel-container {
-      overflow: hidden;
-      width: 100%;
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    /* 轨道样式 */
-    .image-carousel-track {
-      display: flex;
-      width: calc(320px * 14 * 2); 
-      animation: scroll 60s linear infinite; 
-    }
-
-    /* 单张图片容器 */
-    .image-carousel-slide {
-      width: 320px;
-      flex-shrink: 0;
-      padding: 0 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* 图片样式 - 强制保持 16:9 */
-    .image-carousel-slide img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9; 
-      object-fit: cover;
-      border-radius: 6px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    /* 动画 */
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-320px * 14));
-      }
-    }
-    
-    .image-carousel-track:hover {
-      animation-play-state: paused;
-    }
-  </style>
-
-
 <section class="section">
     <div class="container is-max-desktop">
-      
+
       <div class="columns is-centered has-text-centered">
         <div class="column is-12">
           <h2 class="title is-3">Evaluation on OSI-Bench</h2>
@@ -488,78 +300,9 @@
     </div>
   </section>
 
-  <style>
-    /* Table Styling */
-    .leaderboard-table {
-      font-size: 0.9rem; /* 稍微调大了一点字号 */
-    }
-    
-    /* Center align table headers and cells */
-    .leaderboard-table th, 
-    .leaderboard-table td {
-      text-align: center;
-      vertical-align: middle;
-    }
-
-    /* Column Headers Background Colors */
-    .header-rel { background-color: #dcfce7 !important; } /* green!20 */
-    .header-static { background-color: #f3e8ff !important; } /* purple!20 */
-    .header-dynamic { background-color: #fce7f3 !important; } /* pink!20 */
-    
-    /* Group Row Styling */
-    .group-row td {
-      background-color: #f0fdf4 !important; 
-      font-style: italic; 
-      font-weight: 600;
-      text-align: left;
-      color: #000;
-    }
-
-    /* Highlighting (Best and Second Best) */
-    /* 修改点 2: 字体颜色改为黑色 (inherit)，并加粗以示区别 */
-    .best-score { 
-      background-color: #a8a8a8 !important; /* deeper-gray */
-      color: black !important; /* 强制黑色 */
-      font-weight: bold;
-    }
-    .second-score { 
-      background-color: #e5e7eb !important; /* light-gray */
-      color: black !important;
-    }
-
-    /* Rotated Headers */
-    .leaderboard-table th.rotate {
-      height: 100px;
-      white-space: nowrap;
-      vertical-align: bottom;
-      padding: 0;
-    }
-    
-    .leaderboard-table th.rotate > div {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      text-align: left;
-      margin: 0 auto;
-      padding: 5px;
-    }
-
-    /* Prevent text wrapping in first column */
-    .leaderboard-table td:first-child {
-      white-space: nowrap;
-      text-align: left;
-      font-weight: 500;
-    }
-
-    /* Math font simulation */
-    .math-font {
-      font-family: "Latin Modern Math", "Cambria Math", serif;
-      font-style: italic;
-    }
-  </style>
-  
       <section class="section">
     <div class="container is-max-desktop">
-      
+
       <div class="columns is-centered has-text-centered">
         <div class="column is-12">
           <h2 class="title is-3">Conclusion</h2>
@@ -575,7 +318,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
   </section>
 
