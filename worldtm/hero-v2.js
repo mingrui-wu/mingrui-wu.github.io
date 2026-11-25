@@ -180,8 +180,8 @@ function initHero(d, asset) {
     const group = $(id); return { group, path: group.querySelector('path'), pulse: group.querySelector('circle'), length: 0 };
   });
   function drawConnections() {
-    const stacked = window.matchMedia('(max-width: 1439px)').matches;
-    const tablet = window.matchMedia('(min-width: 900px) and (max-width: 1439px)').matches;
+    const stacked = window.matchMedia('(max-width: 1279px)').matches;
+    const tablet = window.matchMedia('(min-width: 900px) and (max-width: 1279px)').matches;
     const origin = stage.getBoundingClientRect();
     $('connections').setAttribute('viewBox', `0 0 ${origin.width} ${origin.height}`);
     const anchor = (el, side) => {
