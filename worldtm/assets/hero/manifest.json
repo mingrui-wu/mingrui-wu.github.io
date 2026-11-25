@@ -1,0 +1,986 @@
+{
+  "schema_version": 2,
+  "data_kind": "real_model_selected_example",
+  "label": "Real WTM results \u00b7 selected test example \u00b7 schematic memory",
+  "scene": {
+    "id": "0716_841552_trajectory_08",
+    "name": "Living room / diverse fixed viewpoints",
+    "map": {
+      "kind": "floorplan",
+      "aspect_ratio": 1.8149336450324653,
+      "world_xy_bounds_m": [
+        -1.5100708839017902,
+        -4.049562344909646,
+        5.042586045502684,
+        -0.43915105117484876
+      ],
+      "path": [
+        {
+          "x": 0.32974397279173784,
+          "y": 0.8338139477235766
+        },
+        {
+          "x": 0.3374221608743551,
+          "y": 0.821716498093155
+        },
+        {
+          "x": 0.3451003489569724,
+          "y": 0.8096190484627334
+        },
+        {
+          "x": 0.35277853703958967,
+          "y": 0.7975215988323117
+        },
+        {
+          "x": 0.3570675593301701,
+          "y": 0.7781404286362561
+        },
+        {
+          "x": 0.36135658162075057,
+          "y": 0.7587592584402004
+        },
+        {
+          "x": 0.365645603911331,
+          "y": 0.7393780882441449
+        },
+        {
+          "x": 0.36955281668683176,
+          "y": 0.721179393494317
+        },
+        {
+          "x": 0.3734600294623325,
+          "y": 0.7029806987444893
+        },
+        {
+          "x": 0.37736724223783324,
+          "y": 0.6847820039946615
+        },
+        {
+          "x": 0.38112894206903936,
+          "y": 0.6633858952309404
+        },
+        {
+          "x": 0.3848906419002455,
+          "y": 0.6419897864672193
+        },
+        {
+          "x": 0.38865234173145163,
+          "y": 0.6205936777034982
+        },
+        {
+          "x": 0.3897071495537221,
+          "y": 0.5966230738664375
+        },
+        {
+          "x": 0.39076195737599256,
+          "y": 0.5726524700293768
+        },
+        {
+          "x": 0.39181676519826303,
+          "y": 0.5486818661923162
+        },
+        {
+          "x": 0.3930204931546417,
+          "y": 0.5304240876399359
+        },
+        {
+          "x": 0.39422422111102046,
+          "y": 0.5121663090875556
+        },
+        {
+          "x": 0.3954279490673992,
+          "y": 0.4939085305351753
+        },
+        {
+          "x": 0.39700920217623425,
+          "y": 0.47678482234714925
+        },
+        {
+          "x": 0.3985904552850694,
+          "y": 0.4596611141591231
+        },
+        {
+          "x": 0.40017170839390453,
+          "y": 0.4425374059710971
+        },
+        {
+          "x": 0.40203340868724413,
+          "y": 0.4242850170748494
+        },
+        {
+          "x": 0.4038951089805838,
+          "y": 0.4060326281786016
+        },
+        {
+          "x": 0.4057568092739234,
+          "y": 0.38778023928235394
+        },
+        {
+          "x": 0.40672165550593653,
+          "y": 0.363996671745535
+        },
+        {
+          "x": 0.4076865017379497,
+          "y": 0.3402131042087162
+        },
+        {
+          "x": 0.4086513479699629,
+          "y": 0.3164295366718974
+        },
+        {
+          "x": 0.4117688094841998,
+          "y": 0.2969240422550812
+        },
+        {
+          "x": 0.4148862709984366,
+          "y": 0.27741854783826525
+        },
+        {
+          "x": 0.41800373251267353,
+          "y": 0.25791305342144916
+        },
+        {
+          "x": 0.4229915275803533,
+          "y": 0.24184774609025542
+        },
+        {
+          "x": 0.4279793226480331,
+          "y": 0.22578243875906168
+        },
+        {
+          "x": 0.4329671177157129,
+          "y": 0.20971713142786796
+        },
+        {
+          "x": 0.44223082008736436,
+          "y": 0.20506260024976528
+        },
+        {
+          "x": 0.45149452245901583,
+          "y": 0.20040806907166253
+        },
+        {
+          "x": 0.4607582248306673,
+          "y": 0.19575353789355984
+        },
+        {
+          "x": 0.472194325864161,
+          "y": 0.1945827331242246
+        },
+        {
+          "x": 0.4836304268976544,
+          "y": 0.19341192835488946
+        },
+        {
+          "x": 0.495066527931148,
+          "y": 0.19224112358555423
+        },
+        {
+          "x": 0.5075981000121611,
+          "y": 0.1875333527707702
+        },
+        {
+          "x": 0.5201296720931741,
+          "y": 0.1828255819559862
+        },
+        {
+          "x": 0.532661244174187,
+          "y": 0.17811781114120218
+        },
+        {
+          "x": 0.5423891081770515,
+          "y": 0.17672533371972854
+        },
+        {
+          "x": 0.5521169721799158,
+          "y": 0.1753328562982549
+        },
+        {
+          "x": 0.5618448361827804,
+          "y": 0.17394037887678127
+        },
+        {
+          "x": 0.5733632385816947,
+          "y": 0.1719087416952231
+        },
+        {
+          "x": 0.5848816409806089,
+          "y": 0.16987710451366497
+        },
+        {
+          "x": 0.5964000433795232,
+          "y": 0.1678454673321068
+        },
+        {
+          "x": 0.6075137934302897,
+          "y": 0.16729232898021232
+        },
+        {
+          "x": 0.6186275434810561,
+          "y": 0.16673919062831777
+        },
+        {
+          "x": 0.6297412935318225,
+          "y": 0.16618605227642327
+        },
+        {
+          "x": 0.6419323170536193,
+          "y": 0.16858940369899023
+        },
+        {
+          "x": 0.6541233405754163,
+          "y": 0.17099275512155712
+        },
+        {
+          "x": 0.6663143640972131,
+          "y": 0.17339610654412405
+        },
+        {
+          "x": 0.6750384692291228,
+          "y": 0.1744705010525897
+        },
+        {
+          "x": 0.6837625743610325,
+          "y": 0.17554489556105538
+        },
+        {
+          "x": 0.692486679492942,
+          "y": 0.17661929006952104
+        },
+        {
+          "x": 0.7059024611892298,
+          "y": 0.1813874265110707
+        },
+        {
+          "x": 0.7193182428855178,
+          "y": 0.18615556295262037
+        },
+        {
+          "x": 0.7327340245818056,
+          "y": 0.19092369939417003
+        },
+        {
+          "x": 0.7429220127147503,
+          "y": 0.1925807023046734
+        },
+        {
+          "x": 0.7531100008476952,
+          "y": 0.19423770521517675
+        },
+        {
+          "x": 0.76329798898064,
+          "y": 0.19589470812568008
+        },
+        {
+          "x": 0.7747937966610807,
+          "y": 0.19651213599735917
+        },
+        {
+          "x": 0.7862896043415215,
+          "y": 0.1971295638690383
+        },
+        {
+          "x": 0.7977854120219623,
+          "y": 0.1977469917407174
+        },
+        {
+          "x": 0.8094849199050282,
+          "y": 0.19913948065837228
+        },
+        {
+          "x": 0.8211844277880944,
+          "y": 0.20053196957602717
+        },
+        {
+          "x": 0.8328839356711604,
+          "y": 0.2019244584936821
+        },
+        {
+          "x": 0.8437937117160744,
+          "y": 0.2027579341002285
+        },
+        {
+          "x": 0.8547034877609889,
+          "y": 0.20359140970677492
+        },
+        {
+          "x": 0.865613263805903,
+          "y": 0.20442488531332134
+        },
+        {
+          "x": 0.8720674336719496,
+          "y": 0.2164499504700229
+        },
+        {
+          "x": 0.8785216035379961,
+          "y": 0.22847501562672468
+        },
+        {
+          "x": 0.8849757734040424,
+          "y": 0.24050008078342625
+        },
+        {
+          "x": 0.8927952119976514,
+          "y": 0.25600935313561973
+        },
+        {
+          "x": 0.9006146505912603,
+          "y": 0.2715186254878135
+        },
+        {
+          "x": 0.9084340891848691,
+          "y": 0.28702789784000704
+        }
+      ],
+      "image": "topdown-gaussian.png"
+    }
+  },
+  "memory": {
+    "visualization": "schematic",
+    "display_slots": 18
+  },
+  "playback": {
+    "duration_ms": 40000,
+    "intro_ms": 2000,
+    "final_hold_ms": 3000,
+    "display_write_counts": [
+      1,
+      7,
+      14,
+      20,
+      27
+    ]
+  },
+  "observations": [
+    {
+      "id": "O01",
+      "write_count": 1,
+      "rgb": "inputs/001.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_000.png",
+      "pose": {
+        "x": 0.32974397279173784,
+        "y": 0.8338139477235766,
+        "yaw_deg": 42.11436555044584
+      },
+      "path_index": 0
+    },
+    {
+      "id": "O02",
+      "write_count": 2,
+      "rgb": "inputs/002.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_003.png",
+      "pose": {
+        "x": 0.35277853703958967,
+        "y": 0.7975215988323117,
+        "yaw_deg": 34.5344313005312
+      },
+      "path_index": 3
+    },
+    {
+      "id": "O03",
+      "write_count": 3,
+      "rgb": "inputs/003.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_006.png",
+      "pose": {
+        "x": 0.365645603911331,
+        "y": 0.7393780882441449,
+        "yaw_deg": 26.043716920254347
+      },
+      "path_index": 6
+    },
+    {
+      "id": "O04",
+      "write_count": 4,
+      "rgb": "inputs/004.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_009.png",
+      "pose": {
+        "x": 0.37736724223783324,
+        "y": 0.6847820039946615,
+        "yaw_deg": 18.692474042180983
+      },
+      "path_index": 9
+    },
+    {
+      "id": "O05",
+      "write_count": 5,
+      "rgb": "inputs/005.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_012.png",
+      "pose": {
+        "x": 0.38865234173145163,
+        "y": 0.6205936777034982,
+        "yaw_deg": 13.144545342443907
+      },
+      "path_index": 12
+    },
+    {
+      "id": "O06",
+      "write_count": 6,
+      "rgb": "inputs/006.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_015.png",
+      "pose": {
+        "x": 0.39181676519826303,
+        "y": 0.5486818661923162,
+        "yaw_deg": 9.768985828580204
+      },
+      "path_index": 15
+    },
+    {
+      "id": "O07",
+      "write_count": 7,
+      "rgb": "inputs/007.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_018.png",
+      "pose": {
+        "x": 0.3954279490673992,
+        "y": 0.4939085305351753,
+        "yaw_deg": 3.6111916388401673
+      },
+      "path_index": 18
+    },
+    {
+      "id": "O08",
+      "write_count": 8,
+      "rgb": "inputs/008.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_021.png",
+      "pose": {
+        "x": 0.40017170839390453,
+        "y": 0.4425374059710971,
+        "yaw_deg": 4.021928830550301
+      },
+      "path_index": 21
+    },
+    {
+      "id": "O09",
+      "write_count": 9,
+      "rgb": "inputs/009.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_024.png",
+      "pose": {
+        "x": 0.4057568092739234,
+        "y": 0.38778023928235394,
+        "yaw_deg": 11.40804893882239
+      },
+      "path_index": 24
+    },
+    {
+      "id": "O10",
+      "write_count": 10,
+      "rgb": "inputs/010.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_027.png",
+      "pose": {
+        "x": 0.4086513479699629,
+        "y": 0.3164295366718974,
+        "yaw_deg": 28.288469112298465
+      },
+      "path_index": 27
+    },
+    {
+      "id": "O11",
+      "write_count": 11,
+      "rgb": "inputs/011.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_030.png",
+      "pose": {
+        "x": 0.41800373251267353,
+        "y": 0.25791305342144916,
+        "yaw_deg": 41.832671340894
+      },
+      "path_index": 30
+    },
+    {
+      "id": "O12",
+      "write_count": 12,
+      "rgb": "inputs/012.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_033.png",
+      "pose": {
+        "x": 0.4329671177157129,
+        "y": 0.20971713142786796,
+        "yaw_deg": 60.06688224185135
+      },
+      "path_index": 33
+    },
+    {
+      "id": "O13",
+      "write_count": 13,
+      "rgb": "inputs/013.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_036.png",
+      "pose": {
+        "x": 0.4607582248306673,
+        "y": 0.19575353789355984,
+        "yaw_deg": 71.81762433094698
+      },
+      "path_index": 36
+    },
+    {
+      "id": "O14",
+      "write_count": 14,
+      "rgb": "inputs/014.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_039.png",
+      "pose": {
+        "x": 0.495066527931148,
+        "y": 0.19224112358555423,
+        "yaw_deg": 77.26729498470061
+      },
+      "path_index": 39
+    },
+    {
+      "id": "O15",
+      "write_count": 15,
+      "rgb": "inputs/015.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_042.png",
+      "pose": {
+        "x": 0.532661244174187,
+        "y": 0.17811781114120218,
+        "yaw_deg": 82.16828639238216
+      },
+      "path_index": 42
+    },
+    {
+      "id": "O16",
+      "write_count": 16,
+      "rgb": "inputs/016.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_045.png",
+      "pose": {
+        "x": 0.5618448361827804,
+        "y": 0.17394037887678127,
+        "yaw_deg": 85.03989201677362
+      },
+      "path_index": 45
+    },
+    {
+      "id": "O17",
+      "write_count": 17,
+      "rgb": "inputs/017.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_048.png",
+      "pose": {
+        "x": 0.5964000433795232,
+        "y": 0.1678454673321068,
+        "yaw_deg": 88.04162042118465
+      },
+      "path_index": 48
+    },
+    {
+      "id": "O18",
+      "write_count": 18,
+      "rgb": "inputs/018.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_051.png",
+      "pose": {
+        "x": 0.6297412935318225,
+        "y": 0.16618605227642327,
+        "yaw_deg": 91.39398994102497
+      },
+      "path_index": 51
+    },
+    {
+      "id": "O19",
+      "write_count": 19,
+      "rgb": "inputs/019.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_054.png",
+      "pose": {
+        "x": 0.6663143640972131,
+        "y": 0.17339610654412405,
+        "yaw_deg": 94.3541956826841
+      },
+      "path_index": 54
+    },
+    {
+      "id": "O20",
+      "write_count": 20,
+      "rgb": "inputs/020.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_057.png",
+      "pose": {
+        "x": 0.692486679492942,
+        "y": 0.17661929006952104,
+        "yaw_deg": 96.04155984805085
+      },
+      "path_index": 57
+    },
+    {
+      "id": "O21",
+      "write_count": 21,
+      "rgb": "inputs/021.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_060.png",
+      "pose": {
+        "x": 0.7327340245818056,
+        "y": 0.19092369939417003,
+        "yaw_deg": 96.10940155054784
+      },
+      "path_index": 60
+    },
+    {
+      "id": "O22",
+      "write_count": 22,
+      "rgb": "inputs/022.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_063.png",
+      "pose": {
+        "x": 0.76329798898064,
+        "y": 0.19589470812568008,
+        "yaw_deg": 95.55777935751742
+      },
+      "path_index": 63
+    },
+    {
+      "id": "O23",
+      "write_count": 23,
+      "rgb": "inputs/023.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_066.png",
+      "pose": {
+        "x": 0.7977854120219623,
+        "y": 0.1977469917407174,
+        "yaw_deg": 96.98929889662766
+      },
+      "path_index": 66
+    },
+    {
+      "id": "O24",
+      "write_count": 24,
+      "rgb": "inputs/024.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_069.png",
+      "pose": {
+        "x": 0.8328839356711604,
+        "y": 0.2019244584936821,
+        "yaw_deg": 103.20873565986521
+      },
+      "path_index": 69
+    },
+    {
+      "id": "O25",
+      "write_count": 25,
+      "rgb": "inputs/025.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_072.png",
+      "pose": {
+        "x": 0.865613263805903,
+        "y": 0.20442488531332134,
+        "yaw_deg": 114.22569361137205
+      },
+      "path_index": 72
+    },
+    {
+      "id": "O26",
+      "write_count": 26,
+      "rgb": "inputs/026.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_075.png",
+      "pose": {
+        "x": 0.8849757734040424,
+        "y": 0.24050008078342625,
+        "yaw_deg": 125.82442049183396
+      },
+      "path_index": 75
+    },
+    {
+      "id": "O27",
+      "write_count": 27,
+      "rgb": "inputs/027.jpg",
+      "source_view": "images/0716_841552/trajectory_08/frame_078.png",
+      "pose": {
+        "x": 0.9084340891848691,
+        "y": 0.28702789784000704,
+        "yaw_deg": 133.454586773924
+      },
+      "path_index": 78
+    }
+  ],
+  "queries": [
+    {
+      "id": "Living",
+      "source_view": "images/0716_841552/trajectory_10/frame_027.png",
+      "pose": {
+        "x": 0.09156591081513098,
+        "y": 0.22846297912492036,
+        "yaw_deg": 80.9496554739289
+      },
+      "path_distance_m": 2.1038093710859407,
+      "images": {
+        "gt": "Living_gt_pca_eplus.png",
+        "rgb": "Living_rgb.png"
+      }
+    },
+    {
+      "id": "TV",
+      "source_view": "images/0716_841552/trajectory_09/frame_006.png",
+      "pose": {
+        "x": 0.598450507502195,
+        "y": 0.4432664174206289,
+        "yaw_deg": 354.0663216818501
+      },
+      "path_distance_m": 0.991024071391461,
+      "images": {
+        "gt": "TV_gt_pca_eplus.png",
+        "rgb": "TV_rgb.png"
+      }
+    },
+    {
+      "id": "Sofa",
+      "source_view": "images/0716_841552/trajectory_04/frame_018.png",
+      "pose": {
+        "x": 0.2680121687839376,
+        "y": 0.16776158380305756,
+        "yaw_deg": 152.44078366693742
+      },
+      "path_distance_m": 1.037402008562684,
+      "images": {
+        "gt": "Sofa_gt_pca_eplus.png",
+        "rgb": "Sofa_rgb.png"
+      }
+    }
+  ],
+  "columns": [
+    {
+      "id": "rgb",
+      "title": "Queried GT image",
+      "role": "reference",
+      "representation": "rgb",
+      "temporal": "fixed"
+    },
+    {
+      "id": "gt",
+      "title": "Feature of GT image",
+      "role": "reference",
+      "representation": "feature_pca",
+      "temporal": "fixed"
+    },
+    {
+      "id": "wtm",
+      "title": "WTM prediction",
+      "role": "prediction",
+      "representation": "feature_pca",
+      "temporal": "checkpoint"
+    },
+    {
+      "id": "vggt",
+      "title": "VGGT-\u03a9 recons",
+      "role": "baseline",
+      "representation": "rgb",
+      "temporal": "checkpoint",
+      "available_from_write_count": 4
+    }
+  ],
+  "checkpoints": [
+    {
+      "write_count": 0,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M000.png",
+          "vggt": null
+        },
+        "TV": {
+          "wtm": "features/TV_M000.png",
+          "vggt": null
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M000.png",
+          "vggt": null
+        }
+      },
+      "cosine": {
+        "Living": 0.4257414638996124,
+        "TV": 0.3963649868965149,
+        "Sofa": 0.441974401473999
+      }
+    },
+    {
+      "write_count": 1,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M001.png",
+          "vggt": null
+        },
+        "TV": {
+          "wtm": "features/TV_M001.png",
+          "vggt": null
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M001.png",
+          "vggt": null
+        }
+      },
+      "cosine": {
+        "Living": 0.5228482484817505,
+        "TV": 0.4618510603904724,
+        "Sofa": 0.4401325285434723
+      }
+    },
+    {
+      "write_count": 4,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M004.png",
+          "vggt": "vggt/Living_M004.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M004.png",
+          "vggt": "vggt/TV_M004.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M004.png",
+          "vggt": "vggt/Sofa_M004.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.5346978902816772,
+        "TV": 0.46049022674560547,
+        "Sofa": 0.4496634602546692
+      }
+    },
+    {
+      "write_count": 7,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M007.png",
+          "vggt": "vggt/Living_M007.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M007.png",
+          "vggt": "vggt/TV_M007.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M007.png",
+          "vggt": "vggt/Sofa_M007.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.5370834469795227,
+        "TV": 0.4785212576389313,
+        "Sofa": 0.4501255750656128
+      }
+    },
+    {
+      "write_count": 10,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M010.png",
+          "vggt": "vggt/Living_M010.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M010.png",
+          "vggt": "vggt/TV_M010.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M010.png",
+          "vggt": "vggt/Sofa_M010.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.5481675267219543,
+        "TV": 0.525153636932373,
+        "Sofa": 0.45765218138694763
+      }
+    },
+    {
+      "write_count": 14,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M014.png",
+          "vggt": "vggt/Living_M014.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M014.png",
+          "vggt": "vggt/TV_M014.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M014.png",
+          "vggt": "vggt/Sofa_M014.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.5888533592224121,
+        "TV": 0.5313780307769775,
+        "Sofa": 0.46730613708496094
+      }
+    },
+    {
+      "write_count": 17,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M017.png",
+          "vggt": "vggt/Living_M017.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M017.png",
+          "vggt": "vggt/TV_M017.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M017.png",
+          "vggt": "vggt/Sofa_M017.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.5925501585006714,
+        "TV": 0.5261982679367065,
+        "Sofa": 0.4732171595096588
+      }
+    },
+    {
+      "write_count": 20,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M020.png",
+          "vggt": "vggt/Living_M020.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M020.png",
+          "vggt": "vggt/TV_M020.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M020.png",
+          "vggt": "vggt/Sofa_M020.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.5955824255943298,
+        "TV": 0.524504542350769,
+        "Sofa": 0.4740062952041626
+      }
+    },
+    {
+      "write_count": 23,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M023.png",
+          "vggt": "vggt/Living_M023.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M023.png",
+          "vggt": "vggt/TV_M023.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M023.png",
+          "vggt": "vggt/Sofa_M023.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.5972755551338196,
+        "TV": 0.5273011326789856,
+        "Sofa": 0.4771574139595032
+      }
+    },
+    {
+      "write_count": 27,
+      "images": {
+        "Living": {
+          "wtm": "features/Living_M027.png",
+          "vggt": "vggt/Living_M027.png"
+        },
+        "TV": {
+          "wtm": "features/TV_M027.png",
+          "vggt": "vggt/TV_M027.png"
+        },
+        "Sofa": {
+          "wtm": "features/Sofa_M027.png",
+          "vggt": "vggt/Sofa_M027.png"
+        }
+      },
+      "cosine": {
+        "Living": 0.601462721824646,
+        "TV": 0.5344489812850952,
+        "Sofa": 0.4741296172142029
+      }
+    }
+  ],
+  "provenance": {
+    "run_id": "1121-interiorgs-diverse-living-room-cpu-r8",
+    "checkpoint_sha256": "852973c6de922facb9e77bfd18229463c53b073d4cf660e3cdc03fbd16e480db",
+    "split": "test",
+    "selection": "post_hoc",
+    "pca_basis_sha256": "080a2e0cfa49c2b23391309a5275d212cdfbb4f396f7e26b801f7e7f6e224b63",
+    "pca_fixed": true,
+    "notes": "FP32 CPU WTM; same original 27-view episode; GT camera-z depth; native 32x32 DINOv2 features. One fixed GT-only PCA fitted to these three queries. Query RGB never written. Views selected post hoc for varied content and improvement; some are near the trajectory. Memory animation is schematic. Top-down is a color orthographic render of the original Gaussian scene from height 2.2m, not WTM reconstruction. VGGT-\u03a9 causal-prefix RGB reconstruction provenance: reconstruction-provenance.json; M0/M1 unavailable, RGBA holes preserved."
+  }
+}

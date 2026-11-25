@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="World Turing Machine: Learning Read–Write Memory for 3D Worlds. A learned read–write memory for accumulating observations and predicting unobserved viewpoints.">
+  <title>World Turing Machine: Learning Read–Write Memory for 3D Worlds</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="project-page.css">
+</head>
+<body>
+  <a class="skip-link" href="#hero">Skip to interactive demo</a>
+  <header class="paper-header">
+    <h1>World Turing Machine:<br>Learning Read–Write Memory for <span class="no-wrap">3D Worlds</span></h1>
+    <div class="authors" role="list" aria-label="Authors">
+      <span role="listitem">Mingrui Wu<sup>1</sup></span><span role="listitem">Zhaozhi Wang<sup>1</sup></span><span role="listitem">Shiping Fu<sup>1</sup></span><span role="listitem">Kaicheng Yu<sup>2</sup></span><span role="listitem">Qixiang Ye<sup>1</sup></span><span role="listitem">Tong Zhang<sup>1</sup></span>
+    </div>
+    <div class="affiliations" role="list" aria-label="Affiliations">
+      <span role="listitem"><sup>1</sup>University of the Chinese Academy of Sciences</span>
+      <span role="listitem"><sup>2</sup>Westlake University</span>
+    </div>
+    <nav class="resources" aria-label="Project resources">
+      <a class="resource-link" role="link" aria-disabled="true" tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 4 12 16M7 20l4-6M13 10l4-6M5 8l3-4M16 20l3-4"/></svg><span>arXiv</span>
+      </a>
+      <a class="resource-link" role="link" aria-disabled="true" tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/></svg><span>Code</span>
+      </a>
+      <a class="resource-link" href="#hero">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 12 8-12 8Z"/></svg><span>Demo</span>
+      </a>
+      <a class="resource-link" role="link" aria-disabled="true" tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7Zm0 10 9-5m-9 5L3 7m9 5v10"/></svg><span>Model</span>
+      </a>
+      <a class="resource-link" role="link" aria-disabled="true" tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H5v20h14V7Zm0 0v5h5M8 12h8m-8 4h8"/></svg><span>Paper</span>
+      </a>
+    </nav>
+    <nav class="section-nav" aria-label="On this page">
+      <a href="#abstract">Abstract</a><a href="#routing">Read–write routing</a><a href="#planning">Planning</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero-section" id="hero" aria-label="Interactive World Turing Machine demonstration">
+      <iframe id="hero-frame" src="examples/living-room.html" title="World Turing Machine: interactive observation, memory and query demonstration"></iframe>
+    </section>
+    <section class="abstract-section" id="abstract" aria-labelledby="abstract-title">
+      <h2 id="abstract-title">Abstract</h2>
+      <p>Spatial world modeling requires collecting evidence across viewpoints and maintaining it in a persistent state for predictions at unobserved views. However, organizing and accessing such accumulated information over time remains a central challenge. In this study, we introduce the World Turing Machine (WTM), which addresses this through learned read–write computation over an Address–Content memory. This memory evolves with observations while the learned read–write operations remain fixed at inference. Before each write, the Reader predicts incoming visual features from the current memory and the condition. The Writer reuses the Reader’s access weights to correct Content with prediction residuals and update Address with observation-derived geometric evidence. Local and global predictive objectives train acquisition, retention, and inference across viewpoints without directly supervising memory. The same Reader supports forward prediction at unvisited poses and inverse pose matching against target-frame features, without an additional localization head. On ScanNet, WTM outperforms evaluated novel-view synthesis and feed-forward 3D reconstruction baselines in held-out feature prediction. With a simple search over candidate poses, WTM achieves 68.5% success on ViewSuite tasks without task-specific policy training, surpassing ViewAgent by +15.9 percentage points, with lower computation and latency. Analyses reveal emergent spatial organization during online memory formation and show that the learned read–write mechanism generalizes across 3D environments.</p>
+    </section>
+    <section class="content-section routing-section" id="routing" aria-labelledby="routing-title">
+      <h2 id="routing-title">Delta-based read-write shared routing</h2>
+      <p class="routing-question">When a new observation arrives, how do we decide which memory slots should receive its information, and how much each slot should receive?</p>
+      <p class="routing-intuition"><strong>The slots that contribute to predicting a patch should also incorporate new evidence from that patch.</strong></p>
+      <figure class="routing-figure">
+        <div class="routing-circuit" role="img" aria-label="Shared read–write routing. A pose enters the Reader, which reads current memory without changing it. Its attention weights guide the Writer. The Writer takes the same pose and the new observation, then updates the responsible memory slots. Slot highlights are schematic.">
+          <div class="route-step-label"><h3>1. Pre-write read</h3><p>Predict the incoming view</p></div>
+          <div class="route-step-label route-step-write"><h3>2. Write in</h3><p>Incorporate new evidence</p></div>
+          <div class="route-pose route-input">Pose <span>p<sub>1</sub></span></div>
+          <div class="route-processor route-reader">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M17 6H6v20h11M11 12h6m-6 8h6m3-12 8 8-8 8m-5-8h13"/></svg>
+            <span>Reader</span>
+          </div>
+          <div class="route-link route-read-link" aria-hidden="true"><span>Read only</span></div>
+          <div class="route-bank route-current">
+            <h3>Current memory</h3>
+            <div class="route-slots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p>Unchanged by reading</p>
+          </div>
+          <div class="route-shared">
+            <svg class="route-definitions" width="0" height="0" aria-hidden="true"><defs><linearGradient id="route-attention-color" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="170"><stop stop-color="#c55a11"/><stop offset="1" stop-color="#7a49eb"/></linearGradient></defs></svg>
+            <svg class="route-transfer" viewBox="0 0 200 180" preserveAspectRatio="none" aria-hidden="true">
+              <path class="route-attention-path" pathLength="1" d="M100 5 V161"/>
+              <path class="route-attention-tip" d="m88 158 12 16 12-16Z"/>
+            </svg>
+            <div class="route-shared-copy"><h3>Reuse Reader attention as routing</h3><p>Guide where and how much to write.</p></div>
+          </div>
+          <div class="route-observation route-input"><span>Pose p<sub>1</sub></span><span class="route-input-plus" aria-hidden="true">+</span><span>Observation o<sub>1</sub></span></div>
+          <div class="route-link route-input-link" aria-hidden="true"></div>
+          <div class="route-processor route-writer">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M14 7H6v20h20v-8M15 21l-5 1 1-5L24 4l4 4-13 13ZM21 7l4 4"/></svg>
+            <span>Writer</span>
+          </div>
+          <div class="route-link route-write-link" aria-hidden="true"><span>Write</span></div>
+          <div class="route-bank route-updated">
+            <h3>Updated memory</h3>
+            <div class="route-slots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p>New evidence incorporated</p>
+          </div>
+        </div>
+        <figcaption>A stronger read contribution gives a slot more responsibility for incorporating that patch’s evidence.</figcaption>
+      </figure>
+    </section>
+    <section class="content-section planning-section" id="planning" aria-labelledby="planning-title">
+      <h2 id="planning-title">WTM supports planning</h2>
+      <p class="planning-question">Imagining unvisited views supports decision making.</p>
+      <figure class="planning-example">
+        <div class="planning-example-grid">
+          <div class="planning-view starting-view"><img src="assets/planning/office-start.png" width="512" height="512" loading="lazy" decoding="async" alt="Initial camera view facing a bookshelf in an office"><span>Initial view</span></div>
+          <div class="planning-view"><img src="assets/planning/office-target.png" width="512" height="512" loading="lazy" decoding="async" alt="Target camera view facing the office desk and chair"><span>Target view</span></div>
+          <div class="planning-view path-view"><img src="assets/planning/office-path.png" width="1024" height="1024" loading="lazy" decoding="async" alt="Top-down render of the same office with the actual WTM exploration path: turn, move, then adjust camera height toward the target view"><span>Exploration path</span></div>
+        </div>
+      </figure>
+      <div class="planning-layout">
+        <div class="planning-copy">
+          <p>We test whether WTM’s ability to imagine and predict can support decision making on ViewSuite IVP, a multi-turn planning task that requires an agent to move to a target view.</p>
+          <p class="planning-result">With a simple greedy search rule and no task-specific policy training, WTM achieves <strong>56.8%</strong> success, with lower computational cost and latency than the task-trained VLM ViewAgent-7B.</p>
+        </div>
+        <div class="results-table-wrap" tabindex="0" role="region" aria-label="ViewSuite results. Scroll horizontally on a small screen.">
+          <table class="results-table">
+            <caption>ViewSuite</caption>
+            <thead><tr><th id="metric-method" scope="col">Method</th><th id="metric-ivp" scope="col" class="ivp-column">IVP</th><th id="metric-p2v" scope="col">P2V</th><th id="metric-v2p" scope="col">V2P</th><th id="metric-all" scope="col">All</th><th id="metric-latency" scope="col">Latency (s)</th><th id="metric-flops" scope="col">TFLOPs</th></tr></thead>
+            <tbody>
+              <tr class="table-group"><th id="group-general" colspan="7" scope="rowgroup">General VLMs</th></tr>
+              <tr data-method="gpt"><th id="method-gpt" scope="row">GPT-5.4 Pro</th><td class="ivp-column" headers="group-general method-gpt metric-ivp">18.5</td><td headers="group-general method-gpt metric-p2v">53.1</td><td headers="group-general method-gpt metric-v2p">50.7</td><td headers="group-general method-gpt metric-all">40.8</td><td headers="group-general method-gpt metric-latency">—</td><td headers="group-general method-gpt metric-flops">—</td></tr>
+              <tr data-method="qwen35"><th id="method-qwen35" scope="row">Qwen3.5</th><td class="ivp-column" headers="group-general method-qwen35 metric-ivp">4.3</td><td headers="group-general method-qwen35 metric-p2v">39.7</td><td headers="group-general method-qwen35 metric-v2p">35.5</td><td headers="group-general method-qwen35 metric-all">26.5</td><td headers="group-general method-qwen35 metric-latency">—</td><td headers="group-general method-qwen35 metric-flops">—</td></tr>
+              <tr data-method="qwen25"><th id="method-qwen25" scope="row">Qwen2.5-VL</th><td class="ivp-column" headers="group-general method-qwen25 metric-ivp">2.5</td><td headers="group-general method-qwen25 metric-p2v">29.5</td><td headers="group-general method-qwen25 metric-v2p">24.2</td><td headers="group-general method-qwen25 metric-all">18.7</td><td headers="group-general method-qwen25 metric-latency">—</td><td headers="group-general method-qwen25 metric-flops">—</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="table-group"><th id="group-trained" colspan="7" scope="rowgroup">Task-trained VLM</th></tr>
+              <tr data-method="viewagent"><th id="method-viewagent" scope="row">ViewAgent-7B</th><td class="ivp-column" headers="group-trained method-viewagent metric-ivp">47.8</td><td headers="group-trained method-viewagent metric-p2v">57.3</td><td headers="group-trained method-viewagent metric-v2p">52.8</td><td headers="group-trained method-viewagent metric-all">52.6</td><td headers="group-trained method-viewagent metric-latency">1.2</td><td headers="group-trained method-viewagent metric-flops">68.9</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="table-group"><th id="group-inverse" colspan="7" scope="rowgroup">Iterative inverse matching</th></tr>
+              <tr data-method="vggt"><th id="method-vggt" scope="row">VGGT-Ω</th><td class="ivp-column" headers="group-inverse method-vggt metric-ivp">19.1</td><td headers="group-inverse method-vggt metric-p2v">—</td><td headers="group-inverse method-vggt metric-v2p">—</td><td headers="group-inverse method-vggt metric-all">—</td><td headers="group-inverse method-vggt metric-latency">15.6</td><td headers="group-inverse method-vggt metric-flops">291.5</td></tr>
+              <tr data-method="fsm"><th id="method-fsm" scope="row">FSM-LVSM-3D</th><td class="ivp-column" headers="group-inverse method-fsm metric-ivp">16.2</td><td headers="group-inverse method-fsm metric-p2v">—</td><td headers="group-inverse method-fsm metric-v2p">—</td><td headers="group-inverse method-fsm metric-all">—</td><td headers="group-inverse method-fsm metric-latency">69.9</td><td headers="group-inverse method-fsm metric-flops">1985</td></tr>
+              <tr class="ours-row" data-method="wtm"><th id="method-wtm" scope="row">WTM</th><td class="ivp-column" headers="group-inverse method-wtm metric-ivp">56.8</td><td headers="group-inverse method-wtm metric-p2v">66.4</td><td headers="group-inverse method-wtm metric-v2p">82.3</td><td headers="group-inverse method-wtm metric-all">68.5</td><td headers="group-inverse method-wtm metric-latency">0.3</td><td headers="group-inverse method-wtm metric-flops">25.9</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-caption">IVP success; P2V/V2P accuracy (%). Latency and computation are measured per IVP decision, averaged over 10 steps on a single A100 GPU. Inverse-matching methods use the same search procedure.</p>
+      </div>
+    </section>
+  </main>
+  <script src="project-page.js"></script>
+</body>
+</html>
