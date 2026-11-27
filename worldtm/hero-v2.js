@@ -24,13 +24,21 @@ function heroStateAt(d, ms) {
   if (ms < intro) return { kind: 'intro', displayed: 0, observed: 0, written: 0, readable: 0, phase: 'intro', progress: 0 };
   if (ms >= end) return { kind: 'final', displayed: n, observed: counts[n - 1], written: counts[n - 1], readable: counts[n - 1], phase: 'final', progress: 1 };
   const index = Math.min(n - 1, Math.floor((ms - intro) / period));
-  const fraction = (ms - intro - index * period) / period;
+  const elapsed = ms - intro - index * period;
+  const staged = Boolean(d.playback.display_write_counts);
+  const observeEnd = staged ? 2100 : period * .3;
+  const transferEnd = observeEnd + (staged ? 2400 : 0);
+  const writeEnd = staged ? transferEnd + 1700 : period * .6;
+  const readEnd = staged ? writeEnd + 1750 : period * .85;
   const count = counts[index], previous = index ? counts[index - 1] : 0;
   const hasRead = d.checkpoints.some(c => c.write_count === count);
-  const phase = fraction < .3 ? 'observe' : fraction < .6 ? 'write' : hasRead && fraction < .85 ? 'read' : 'result';
-  const progress = phase === 'write' ? (fraction - .3) / .3 : phase === 'read' ? (fraction - .6) / .25 : 1;
-  return { kind: 'input', displayed: index + 1, observed: count, written: fraction >= .6 ? count : previous,
-    readable: fraction >= .85 ? count : previous, phase, progress };
+  const phase = elapsed < observeEnd ? 'observe' : elapsed < writeEnd ? 'write' : hasRead && elapsed < readEnd ? 'read' : 'result';
+  const transferring = staged && phase === 'write' && elapsed < transferEnd;
+  const transferProgress = phase === 'write' && staged ? Math.min(1, (elapsed - observeEnd) / 2400) : 0;
+  const progress = phase === 'write' ? Math.max(0, (elapsed - transferEnd) / (writeEnd - transferEnd))
+    : phase === 'read' ? (elapsed - writeEnd) / (readEnd - writeEnd) : 1;
+  return { kind: 'input', displayed: index + 1, observed: count, written: elapsed >= writeEnd ? count : previous,
+    readable: elapsed >= readEnd ? count : previous, phase, progress, transferring, transferProgress };
 }
 
 function heroCheckpointAt(d, prefix) {
@@ -42,6 +50,7 @@ function heroDescriptionAt(d, s) {
   if (s.kind === 'final') return `Compare predictions at the ${d.queries.length} fixed query poses.`;
   const step = `Step ${s.displayed}: `;
   if (s.phase === 'observe') return step + 'Move to a new view.';
+  if (s.transferring) return step + 'Move this view and camera pose into Writer.';
   if (s.phase === 'write') return step + 'Write this view into memory.';
   return step + `Read memory at ${d.queries.length} fixed query poses.`;
 }
@@ -121,6 +130,42 @@ function initHero(d, asset) {
     el.querySelector('.glyph').style.rotate = `${pose.yaw_deg}deg`;
   }
   const currentCamera = camera('', d.observations[0].pose, 'current hide');
+  const flightLayer = document.createElement('div');
+  flightLayer.className = 'write-flight-layer'; flightLayer.hidden = true;
+  flightLayer.setAttribute('aria-hidden', 'true');
+  const imageCopy = document.createElement('img');
+  imageCopy.className = 'write-flight write-image-copy'; imageCopy.alt = '';
+  const poseCopy = currentCamera.cloneNode(true);
+  poseCopy.removeAttribute('style'); poseCopy.className = 'camera current write-flight write-pose-copy';
+  flightLayer.append(imageCopy, poseCopy); stage.append(flightLayer);
+  let transferGeometry = null;
+  function measureTransfer() {
+    if (currentCamera.classList.contains('hide')) return;
+    const origin = stage.getBoundingClientRect(), writer = $('writer').getBoundingClientRect();
+    transferGeometry = [imageCopy, poseCopy].map((copy, i) => {
+      const r = (i ? currentCamera : $('observation')).getBoundingClientRect();
+      copy.style.width = `${r.width}px`; copy.style.height = `${r.height}px`;
+      return { x: r.left + r.width / 2 - origin.left, y: r.top + r.height / 2 - origin.top,
+        width: r.width, height: r.height, scale: i ? 1 : .2,
+        targetX: writer.left + writer.width / 2 - origin.left,
+        targetY: writer.top + writer.height * (i ? .28 : .72) - origin.top };
+    });
+  }
+  function paintTransfer(s) {
+    const selected = Boolean(s.transferring);
+    document.querySelector('.observation').classList.toggle('input-selected', selected);
+    currentCamera.classList.toggle('input-selected', selected);
+    flightLayer.hidden = !d.playback.display_write_counts || motion.matches || s.phase !== 'write' || s.progress > .2;
+    if (flightLayer.hidden || !transferGeometry) return;
+    const t = .5 - Math.cos(Math.PI * s.transferProgress) / 2;
+    flightLayer.style.opacity = s.transferring ? Math.min(1, s.transferProgress * 12) : Math.max(0, 1 - s.progress / .2);
+    [imageCopy, poseCopy].forEach((copy, i) => {
+      const g = transferGeometry[i], scale = 1 + (g.scale - 1) * t;
+      const x = g.x + (g.targetX - g.x) * t - g.width * scale / 2;
+      const y = g.y + (g.targetY - g.y) * t - g.height * scale / 2;
+      copy.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+    });
+  }
   d.queries.forEach(q => {
     camera(q.id, q.pose, 'query');
     const chip = document.createElement('span'); chip.textContent = q.id; $('query-list').append(chip);
@@ -216,13 +261,15 @@ function initHero(d, asset) {
     });
     connections.forEach(c => { c.length = c.path.getTotalLength(); });
     paintFlow(heroStateAt(d, currentMs));
+    measureTransfer(); paintTransfer(heroStateAt(d, currentMs));
   }
   function paintFlow(s) {
-    const writing = s.phase === 'write', reading = s.phase === 'read';
+    const writing = s.phase === 'write' && !s.transferring, reading = s.phase === 'read';
     connections.forEach((c, i) => {
-      const active = i < 2 ? writing : reading; c.group.classList.toggle('active', active);
+      const active = i === 0 ? (s.transferring || writing) : i === 1 ? writing : reading;
+      c.group.classList.toggle('active', active);
       if (active && c.length) {
-        const point = c.path.getPointAtLength(s.progress * c.length);
+        const point = c.path.getPointAtLength((i === 0 && s.transferring ? s.transferProgress : s.progress) * c.length);
         c.pulse.setAttribute('cx', point.x); c.pulse.setAttribute('cy', point.y);
       }
     });
@@ -245,6 +292,7 @@ function initHero(d, asset) {
     const s = heroStateAt(d, ms), read = heroCheckpointAt(d, s.readable);
     stage.dataset.displayed = s.displayed;
     stage.dataset.phase = s.phase; stage.dataset.observations = s.observed;
+    stage.dataset.writeStage = s.phase === 'write' ? (s.transferring ? 'transfer' : 'commit') : '';
     stage.dataset.writes = s.written; stage.dataset.predictions = read ? read.write_count : -1;
     if (lastObs !== s.observed) {
       lastObs = s.observed;
@@ -253,6 +301,9 @@ function initHero(d, asset) {
       if (s.observed) {
         const o = d.observations[s.observed - 1]; $('observation').src = asset(o.rgb);
         positionCamera(currentCamera, o.pose);
+        imageCopy.src = $('observation').src;
+        poseCopy.querySelector('.glyph').style.rotate = `${o.pose.yaw_deg}deg`;
+        measureTransfer();
       }
     }
     if (lastWritten !== s.written) {
@@ -267,10 +318,11 @@ function initHero(d, asset) {
       button.setAttribute('aria-pressed', String(current));
     });
     paintFlow(s);
+    paintTransfer(s);
     slots.forEach((el, i) => {
       let value = slotValue(i, s.written);
       const delta = s.phase === 'write' ? slotValue(i, s.observed) - value : 0;
-      const updating = s.phase === 'write' && Array.from({ length: s.observed - s.written }, (_, j) => j + s.written + 1).some(count => slotGate(i, count) > .80);
+      const updating = s.phase === 'write' && !s.transferring && Array.from({ length: s.observed - s.written }, (_, j) => j + s.written + 1).some(count => slotGate(i, count) > .80);
       el.classList.toggle('updating', updating);
       value += delta * s.progress;
       el.style.setProperty('--slot-strength', value);
@@ -292,9 +344,9 @@ function initHero(d, asset) {
       });
     }
     const phase = s.kind === 'intro' ? 'Ready' : s.kind === 'final' ? 'Complete'
-      : s.phase === 'observe' ? 'Observing' : s.phase === 'write' ? 'Writing'
+      : s.phase === 'observe' ? 'Observing' : s.transferring ? 'Sending inputs' : s.phase === 'write' ? 'Writing'
       : s.phase === 'read' ? 'Reading' : 'Reviewing';
-    const phaseKey = `${s.kind}-${s.phase}-${s.displayed}`;
+    const phaseKey = `${s.kind}-${s.phase}-${s.displayed}-${s.transferring}`;
     if (phaseKey !== lastPhase) {
       lastPhase = phaseKey; $('phase-label').textContent = phase;
       const description = heroDescriptionAt(d, s);
@@ -330,7 +382,7 @@ function initHero(d, asset) {
       e.preventDefault(); togglePlayback();
     }
   });
-  motion.addEventListener('change', e => { if (e.matches) { playing = false; updateButton(); } });
+  motion.addEventListener('change', e => { if (e.matches) { playing = false; updateButton(); } render(currentMs); });
   function tick(timestamp) {
     if (lastFrame) {
       if (playing && heroInViewport) { currentMs = (currentMs + Math.min(100, timestamp - lastFrame) * speed) % total; render(currentMs); }
